@@ -8,7 +8,7 @@ Ce projet consiste à développer un site web pour **LEGO** avec une fonctionnal
 - Créer une expérience utilisateur fluide et intuitive avec du code HTML, CSS, JavaScript et PHP.
 - Permettre aux utilisateurs de naviguer à travers trois catégories de produits :
   - **Briques LEGO**
-  - **sets marvel LEGO**
+  - **sets harry potter LEGO**
   - **vetements LEGO**
   
 - Gérer les stocks de produits en temps réel et offrir la possibilité de récupérer les articles via le système de Click & Collect.
@@ -65,4 +65,4 @@ Ce projet consiste à développer un site web pour **LEGO** avec une fonctionnal
 ## Auteurs
 
 - **Louis POTEVIN** - Développeur Full-Stack
-- **Vivien PAIN** - Développeur
+- **Vivien PAIN** - Développeur Front-end
