@@ -7,8 +7,8 @@ Ce projet consiste à développer un site web pour **LEGO** avec une fonctionnal
 ### Objectifs principaux :
 - Créer une expérience utilisateur fluide et intuitive avec du code HTML, CSS, JavaScript et PHP.
 - Permettre aux utilisateurs de naviguer à travers trois catégories de produits :
-  - **Briques LEGO**
-  - **sets harry potter LEGO**
+  - **Briques LEGO** 
+  - **sets harry potter LEGO** (Le château de Poudlard, )
   - **vetements LEGO**
   
 - Gérer les stocks de produits en temps réel et offrir la possibilité de récupérer les articles via le système de Click & Collect.
