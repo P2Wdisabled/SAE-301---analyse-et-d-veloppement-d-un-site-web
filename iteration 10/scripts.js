@@ -1,0 +1,856 @@
+// scripts.js
+
+// Fonction pour récupérer toutes les catégories
+async function fetchAllCategories() {
+    try {
+        let response = await fetch('requester.php?action=getAllCategories');
+        let categories = await response.json();
+        return categories;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des catégories :', error);
+    }
+}
+
+// Fonction pour récupérer les produits, avec option de filtrage
+async function fetchAllProducts(categoryId = null) {
+    try {
+        let url = 'requester.php?action=getAllProducts';
+        if (categoryId) {
+            url += `&categoryId=${categoryId}`;
+        }
+        let response = await fetch(url);
+        let products = await response.json();
+        return products;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des produits :', error);
+    }
+}
+
+// Fonction pour afficher les catégories dans un select
+function renderCategories(categories) {
+    let categorySelect = document.querySelector("#categorySelect");
+    categorySelect.innerHTML = '';
+
+    // Ajouter l'option "All"
+    let allOption = document.createElement('option');
+    allOption.value = '';
+    allOption.textContent = 'All';
+    categorySelect.appendChild(allOption);
+
+    categories.forEach(category => {
+        let option = document.createElement('option');
+        option.value = category.id;
+        option.textContent = category.name;
+        categorySelect.appendChild(option);
+    });
+}
+
+// Fonction pour afficher les produits
+function renderProducts(products) {
+    let container = document.querySelector("#productsContainer");
+    container.innerHTML = '';
+
+    if (products.length === 0) {
+        container.textContent = 'Aucun produit trouvé pour la catégorie sélectionnée.';
+        return;
+    }
+
+    products.forEach(product => {
+        let div = document.createElement("div");
+        div.className = "product";
+
+        let img = document.createElement("img");
+        img.src = product.image;
+        img.alt = product.name;
+
+        let h2 = document.createElement("h2");
+        h2.textContent = product.name;
+
+        let p1 = document.createElement("p");
+        p1.textContent = `Âge : ${product.age}, Pièces : ${product.pieces}`;
+
+        let p2 = document.createElement("p");
+        p2.textContent = `Prix : ${parseFloat(product.price).toFixed(2)} €`;
+
+        // Afficher le stock
+        let stockInfo = document.createElement("p");
+        if (product.stock <= 0) {
+            stockInfo.textContent = "Temporairement indisponible";
+            stockInfo.style.color = "red";
+        } else if (product.stock <= 5) {
+            stockInfo.textContent = "Bientôt épuisé";
+            stockInfo.style.color = "orange";
+        } else {
+            stockInfo.textContent = "En stock";
+            stockInfo.style.color = "green";
+        }
+
+        // Lien vers la page de détails du produit
+        let detailsLink = document.createElement("a");
+        detailsLink.href = `product.html?id=${product.id}`;
+        detailsLink.textContent = "Voir les détails";
+
+        div.appendChild(img);
+        div.appendChild(h2);
+        div.appendChild(p1);
+        div.appendChild(p2);
+        div.appendChild(stockInfo);
+        div.appendChild(detailsLink);
+
+        container.appendChild(div);
+    });
+}
+
+// Fonction pour récupérer les détails d'un produit
+async function fetchProductDetails(productId) {
+    try {
+        let response = await fetch(`requester.php?action=getProductDetails&productId=${productId}`);
+        let product = await response.json();
+        return product;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des détails du produit :', error);
+    }
+}
+
+// Fonction pour afficher les détails du produit
+function renderProductDetails(product) {
+    let container = document.querySelector("#productDetail");
+    container.innerHTML = '';
+
+    if (product.error) {
+        container.textContent = product.error;
+        return;
+    }
+
+    let div = document.createElement("div");
+    div.className = "product-detail";
+
+    let img = document.createElement("img");
+    img.src = product.image;
+    img.alt = product.name;
+
+    let h2 = document.createElement("h2");
+    h2.textContent = product.name;
+
+    let p1 = document.createElement("p");
+    p1.textContent = `Âge : ${product.age}, Pièces : ${product.pieces}`;
+
+    let p2 = document.createElement("p");
+    p2.textContent = `Prix : ${parseFloat(product.price).toFixed(2)} €`;
+
+    // Afficher le stock
+    let stockInfo = document.createElement("p");
+    if (product.stock <= 0) {
+        stockInfo.textContent = "Temporairement indisponible";
+        stockInfo.style.color = "red";
+    } else if (product.stock <= 5) {
+        stockInfo.textContent = "Bientôt épuisé";
+        stockInfo.style.color = "orange";
+    } else {
+        stockInfo.textContent = "En stock";
+        stockInfo.style.color = "green";
+    }
+
+    div.appendChild(img);
+    div.appendChild(h2);
+    div.appendChild(p1);
+    div.appendChild(p2);
+    div.appendChild(stockInfo);
+
+    // Afficher les options
+    let optionsDiv = document.createElement("div");
+    optionsDiv.className = "options";
+
+    var selectedOptions = {};
+
+    for (let optionName in product.options) {
+        let optionValues = product.options[optionName];
+
+        let label = document.createElement("label");
+        label.textContent = `${optionName} : `;
+
+        let select = document.createElement("select");
+        optionValues.forEach(value => {
+            let option = document.createElement("option");
+            option.value = value;
+            option.textContent = value;
+            select.appendChild(option);
+        });
+
+        select.addEventListener("change", function() {
+            selectedOptions[optionName] = this.value;
+        });
+
+        // Sélection par défaut
+        selectedOptions[optionName] = optionValues[0];
+
+        label.appendChild(select);
+        optionsDiv.appendChild(label);
+        optionsDiv.appendChild(document.createElement("br"));
+    }
+
+    div.appendChild(optionsDiv);
+
+    // Bouton "Ajouter au panier"
+    let addToCartButton = document.createElement("button");
+    addToCartButton.textContent = "Ajouter au panier";
+
+    if (product.stock <= 0) {
+        addToCartButton.disabled = true;
+    }
+
+    addToCartButton.addEventListener("click", async function() {
+        let quantity = parseInt(document.querySelector("#quantityInput").value);
+        let result = await addToCart(product.id, quantity, selectedOptions);
+        if (result.success) {
+            alert(result.success);
+        } else {
+            alert(result.error);
+        }
+    });
+
+    // Sélecteur de quantité
+    let quantityLabel = document.createElement("label");
+    quantityLabel.textContent = "Quantité : ";
+
+    let quantityInput = document.createElement("input");
+    quantityInput.type = "number";
+    quantityInput.id = "quantityInput";
+    quantityInput.value = 1;
+    quantityInput.min = 1;
+    quantityInput.max = product.stock;
+
+    if (product.stock <= 0) {
+        quantityInput.disabled = true;
+    }
+
+    quantityLabel.appendChild(quantityInput);
+
+    div.appendChild(quantityLabel);
+    div.appendChild(document.createElement("br"));
+    div.appendChild(addToCartButton);
+
+    container.appendChild(div);
+}
+
+// Fonction pour ajouter un produit au panier
+async function addToCart(productId, quantity, options) {
+    try {
+        let formData = new FormData();
+        formData.append('productId', productId);
+        formData.append('quantity', quantity);
+        formData.append('options', JSON.stringify(options));
+
+        let response = await fetch('requester.php?action=addToCart', {
+            method: 'POST',
+            body: formData
+        });
+        let result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('Erreur lors de l\'ajout au panier :', error);
+    }
+}
+
+// Fonction pour obtenir le panier
+async function fetchCart() {
+    try {
+        let response = await fetch('requester.php?action=getCart');
+        let cart = await response.json();
+        return cart;
+    } catch (error) {
+        console.error('Erreur lors de la récupération du panier :', error);
+    }
+}
+
+// Fonction pour afficher le panier
+function renderCart(cart) {
+    let container = document.querySelector("#cartContainer");
+    container.innerHTML = '';
+
+    if (cart.length === 0) {
+        container.textContent = "Votre panier est vide.";
+        return;
+    }
+
+    let table = document.createElement("table");
+    let thead = document.createElement("thead");
+    let headerRow = document.createElement("tr");
+
+    ["Produit", "Options", "Prix unitaire", "Quantité", "Sous-total", "Actions"].forEach(text => {
+        let th = document.createElement("th");
+        th.textContent = text;
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    let tbody = document.createElement("tbody");
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        let row = document.createElement("tr");
+
+        // Produit
+        let tdProduct = document.createElement("td");
+        tdProduct.textContent = item.name;
+        row.appendChild(tdProduct);
+
+        // Options
+        let tdOptions = document.createElement("td");
+        if (item.options && Object.keys(item.options).length > 0) {
+            tdOptions.textContent = Object.entries(item.options).map(([key, value]) => `${key}: ${value}`).join(", ");
+        } else {
+            tdOptions.textContent = "N/A";
+        }
+        row.appendChild(tdOptions);
+
+        // Prix unitaire
+        let tdPrice = document.createElement("td");
+        tdPrice.textContent = `${parseFloat(item.price).toFixed(2)} €`;
+        row.appendChild(tdPrice);
+
+        // Quantité
+        let tdQuantity = document.createElement("td");
+        let quantityInput = document.createElement("input");
+        quantityInput.type = "number";
+        quantityInput.value = item.quantity;
+        quantityInput.min = 1;
+        quantityInput.max = item.stock;
+        quantityInput.addEventListener("change", function() {
+            updateCartItem(index, parseInt(this.value));
+        });
+        tdQuantity.appendChild(quantityInput);
+        row.appendChild(tdQuantity);
+
+        // Sous-total
+        let subtotal = item.price * item.quantity;
+        total += subtotal;
+        let tdSubtotal = document.createElement("td");
+        tdSubtotal.textContent = `${subtotal.toFixed(2)} €`;
+        row.appendChild(tdSubtotal);
+
+        // Actions
+        let tdActions = document.createElement("td");
+        let deleteButton = document.createElement("button");
+        deleteButton.textContent = "Supprimer";
+        deleteButton.addEventListener("click", function() {
+            removeCartItem(index);
+        });
+        tdActions.appendChild(deleteButton);
+        row.appendChild(tdActions);
+
+        tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    container.appendChild(table);
+
+    // Afficher le total
+    let totalDiv = document.createElement("div");
+    totalDiv.className = "total";
+    totalDiv.textContent = `Total : ${total.toFixed(2)} €`;
+    container.appendChild(totalDiv);
+
+    // Bouton "Valider le panier"
+    let checkoutButton = document.createElement("button");
+    checkoutButton.textContent = "Valider le panier";
+    checkoutButton.addEventListener("click", function() {
+        checkout();
+    });
+    container.appendChild(checkoutButton);
+}
+
+// Fonction pour mettre à jour la quantité d'un article du panier
+async function updateCartItem(index, quantity) {
+    try {
+        let formData = new FormData();
+        formData.append('index', index);
+        formData.append('quantity', quantity);
+
+        let response = await fetch('requester.php?action=updateCartItem', {
+            method: 'POST',
+            body: formData
+        });
+        let result = await response.json();
+
+        if (result.success) {
+            let cart = await fetchCart();
+            renderCart(cart);
+        } else {
+            alert(result.error);
+            let cart = await fetchCart();
+            renderCart(cart);
+        }
+    } catch (error) {
+        console.error('Erreur lors de la mise à jour du panier :', error);
+    }
+}
+
+// Fonction pour supprimer un article du panier
+async function removeCartItem(index) {
+    try {
+        let formData = new FormData();
+        formData.append('index', index);
+
+        let response = await fetch('requester.php?action=removeCartItem', {
+            method: 'POST',
+            body: formData
+        });
+        let result = await response.json();
+
+        if (result.success) {
+            let cart = await fetchCart();
+            renderCart(cart);
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error('Erreur lors de la suppression du panier :', error);
+    }
+}
+
+// Fonction pour vérifier si l'utilisateur est connecté
+async function isAuthenticated() {
+    try {
+        let response = await fetch('check_auth.php');
+        let result = await response.json();
+        return result.isAuthenticated;
+    } catch (error) {
+        console.error('Erreur lors de la vérification de l\'authentification :', error);
+        return false;
+    }
+}
+
+// Fonction pour valider le panier
+async function checkout() {
+    try {
+        let response = await fetch('requester.php?action=checkout');
+        let result = await response.json();
+
+        if (result.success) {
+            alert(result.success);
+            window.location.href = 'index.html';
+        } else if (result.error === 'Utilisateur non connecté') {
+            window.location.href = 'login.html';
+        } else {
+            alert(result.error);
+            // Rafraîchir le panier pour mettre à jour les quantités et le stock
+            let cart = await fetchCart();
+            renderCart(cart);
+        }
+    } catch (error) {
+        console.error('Erreur lors de la validation du panier :', error);
+    }
+}
+
+// Fonction pour gérer l'inscription
+async function registerUser(username, password) {
+    try {
+        let formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+
+        let response = await fetch('requester.php?action=register', {
+            method: 'POST',
+            body: formData
+        });
+        let result = await response.json();
+
+        if (result.success) {
+            alert(result.success);
+            window.location.href = 'login.html';
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error('Erreur lors de l\'inscription :', error);
+    }
+}
+
+// Fonction pour gérer la connexion
+async function loginUser(username, password) {
+    try {
+        let formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+
+        let response = await fetch('requester.php?action=login', {
+            method: 'POST',
+            body: formData
+        });
+        let result = await response.json();
+
+        if (result.success) {
+            alert(result.success);
+            window.location.href = 'cart.html';
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error('Erreur lors de la connexion :', error);
+    }
+}
+
+// Gestion du formulaire d'inscription
+if (document.querySelector("#registerForm")) {
+    document.querySelector("#registerForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        let username = document.querySelector("#username").value;
+        let password = document.querySelector("#password").value;
+        registerUser(username, password);
+    });
+}
+
+// Gestion du formulaire de connexion
+if (document.querySelector("#loginForm")) {
+    document.querySelector("#loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        let username = document.querySelector("#username").value;
+        let password = document.querySelector("#password").value;
+        loginUser(username, password);
+    });
+}
+
+// Fonction pour afficher le détail du produit
+async function displayProductDetail() {
+    // Obtenir l'ID du produit depuis l'URL
+    let params = new URLSearchParams(window.location.search);
+    let productId = params.get('id');
+
+    if (productId) {
+        let product = await fetchProductDetails(productId);
+        renderProductDetails(product);
+    } else {
+        document.querySelector("#productDetail").textContent = "ID du produit manquant dans l'URL.";
+    }
+}
+
+// Chargement initial
+document.addEventListener('DOMContentLoaded', async function() {
+    if (document.querySelector("#categorySelect")) {
+        let categories = await fetchAllCategories();
+        renderCategories(categories);
+
+        let products = await fetchAllProducts();
+        renderProducts(products);
+
+        // Écouteur pour le select des catégories
+        document.querySelector('#categorySelect').addEventListener('change', async function() {
+            let categoryId = this.value || null;
+            let products = await fetchAllProducts(categoryId);
+            renderProducts(products);
+        });
+    }
+
+    if (document.querySelector("#productDetail")) {
+        displayProductDetail();
+    }
+
+    if (document.querySelector("#cartContainer")) {
+        let cart = await fetchCart();
+        renderCart(cart);
+    }
+});
+
+// Fonction pour obtenir les informations du compte utilisateur
+async function fetchUserAccountInfo() {
+    try {
+        let response = await fetch('requester.php?action=getUserAccountInfo');
+        let userInfo = await response.json();
+        return userInfo;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des informations du compte :', error);
+    }
+}
+
+// Fonction pour afficher les informations du compte utilisateur
+function renderUserAccountInfo(userInfo) {
+    let container = document.querySelector("#accountInfoContainer");
+    container.innerHTML = '';
+
+    if (userInfo.error) {
+        container.textContent = userInfo.error;
+        return;
+    }
+
+    let h2 = document.createElement("h2");
+    h2.textContent = `Bienvenue, ${userInfo.username}`;
+    container.appendChild(h2);
+
+    // Afficher d'autres informations si nécessaire
+}
+
+// Fonction pour obtenir l'historique des commandes
+async function fetchUserOrderHistory() {
+    try {
+        let response = await fetch('requester.php?action=getUserOrderHistory');
+        let orders = await response.json();
+        return orders;
+    } catch (error) {
+        console.error('Erreur lors de la récupération de l\'historique des commandes :', error);
+    }
+}
+
+// Fonction pour afficher l'historique des commandes
+function renderUserOrderHistory(orders) {
+    let container = document.querySelector("#orderHistoryContainer");
+    container.innerHTML = '';
+
+    if (orders.error) {
+        container.textContent = orders.error;
+        return;
+    }
+
+    if (orders.length === 0) {
+        container.textContent = "Vous n'avez passé aucune commande.";
+        return;
+    }
+
+    let table = document.createElement("table");
+    let thead = document.createElement("thead");
+    let headerRow = document.createElement("tr");
+
+    ["ID", "Date", "Statut", "Actions"].forEach(text => {
+        let th = document.createElement("th");
+        th.textContent = text;
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    let tbody = document.createElement("tbody");
+
+    orders.forEach(order => {
+        let row = document.createElement("tr");
+
+        // ID
+        let tdId = document.createElement("td");
+        tdId.textContent = order.id;
+        row.appendChild(tdId);
+
+        // Date
+        let tdDate = document.createElement("td");
+        tdDate.textContent = order.date;
+        row.appendChild(tdDate);
+
+        // Statut
+        let tdStatus = document.createElement("td");
+        tdStatus.textContent = order.status;
+        row.appendChild(tdStatus);
+
+        // Actions
+        let tdActions = document.createElement("td");
+        let viewDetailsButton = document.createElement("button");
+        viewDetailsButton.textContent = "Voir les détails";
+        viewDetailsButton.addEventListener("click", function() {
+            window.location.href = `user_order_details.html?orderId=${order.id}`;
+        });
+        tdActions.appendChild(viewDetailsButton);
+        row.appendChild(tdActions);
+
+        tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    container.appendChild(table);
+}
+
+// Fonction pour vérifier si l'utilisateur est connecté
+async function isAuthenticated() {
+    try {
+        let response = await fetch('check_auth.php');
+        let result = await response.json();
+        return result.isAuthenticated;
+    } catch (error) {
+        console.error('Erreur lors de la vérification de l\'authentification :', error);
+        return false;
+    }
+}
+
+// Chargement initial de l'espace client
+if (document.querySelector("#accountInfoContainer")) {
+    document.addEventListener('DOMContentLoaded', async function() {
+        let authenticated = await isAuthenticated();
+        if (!authenticated) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        let userInfo = await fetchUserAccountInfo();
+        renderUserAccountInfo(userInfo);
+
+        let orders = await fetchUserOrderHistory();
+        renderUserOrderHistory(orders);
+    });
+}
+
+// Fonction pour récupérer les détails d'une commande
+async function fetchUserOrderDetails(orderId) {
+    try {
+        let response = await fetch(`requester.php?action=getUserOrderDetails&orderId=${orderId}`);
+        let order = await response.json();
+        return order;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des détails de la commande :', error);
+    }
+}
+
+// Fonction pour afficher les détails de la commande
+function renderUserOrderDetails(order) {
+    let container = document.querySelector("#orderDetailsContainer");
+    container.innerHTML = '';
+
+    if (order.error) {
+        container.textContent = order.error;
+        return;
+    }
+
+    let h2 = document.createElement("h2");
+    h2.textContent = `Commande #${order.id}`;
+    container.appendChild(h2);
+
+    let pDate = document.createElement("p");
+    pDate.textContent = `Date : ${order.date}`;
+    container.appendChild(pDate);
+
+    let pStatus = document.createElement("p");
+    pStatus.textContent = `Statut : ${order.status}`;
+    container.appendChild(pStatus);
+
+    let table = document.createElement("table");
+    let thead = document.createElement("thead");
+    let headerRow = document.createElement("tr");
+
+    ["Produit", "Options", "Quantité"].forEach(text => {
+        let th = document.createElement("th");
+        th.textContent = text;
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    let tbody = document.createElement("tbody");
+
+    order.items.forEach(item => {
+        let row = document.createElement("tr");
+
+        // Produit
+        let tdProduct = document.createElement("td");
+        tdProduct.textContent = item.name;
+        row.appendChild(tdProduct);
+
+        // Options
+        let tdOptions = document.createElement("td");
+        if (item.options && item.options !== '{}') {
+            let optionsObj = JSON.parse(item.options);
+            tdOptions.textContent = Object.entries(optionsObj).map(([key, value]) => `${key}: ${value}`).join(", ");
+        } else {
+            tdOptions.textContent = "N/A";
+        }
+        row.appendChild(tdOptions);
+
+        // Quantité
+        let tdQuantity = document.createElement("td");
+        tdQuantity.textContent = item.quantity;
+        row.appendChild(tdQuantity);
+
+        tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    container.appendChild(table);
+
+    // Boutons d'action
+    let actionsDiv = document.createElement("div");
+    actionsDiv.style.marginTop = "20px";
+
+    let reorderButton = document.createElement("button");
+    reorderButton.textContent = "Repasser cette commande";
+    reorderButton.addEventListener("click", function() {
+        reorder(order.id);
+    });
+    actionsDiv.appendChild(reorderButton);
+
+    let addToCartButton = document.createElement("button");
+    addToCartButton.textContent = "Ajouter les produits au panier";
+    addToCartButton.style.marginLeft = "10px";
+    addToCartButton.addEventListener("click", function() {
+        addOrderToCart(order.id);
+    });
+    actionsDiv.appendChild(addToCartButton);
+
+    container.appendChild(actionsDiv);
+}
+
+// Fonction pour repasser la commande
+async function reorder(orderId) {
+    try {
+        let formData = new FormData();
+        formData.append('orderId', orderId);
+
+        let response = await fetch('requester.php?action=reorder', {
+            method: 'POST',
+            body: formData
+        });
+        let result = await response.json();
+
+        if (result.success) {
+            alert(result.success);
+            // Rediriger vers l'historique des commandes
+            window.location.href = 'account.html';
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error('Erreur lors du renouvellement de la commande :', error);
+    }
+}
+
+// Fonction pour ajouter les produits de la commande au panier
+async function addOrderToCart(orderId) {
+    try {
+        let formData = new FormData();
+        formData.append('orderId', orderId);
+
+        let response = await fetch('requester.php?action=addOrderToCart', {
+            method: 'POST',
+            body: formData
+        });
+        let result = await response.json();
+
+        if (result.success) {
+            alert(result.success);
+            // Rediriger vers le panier
+            window.location.href = 'cart.html';
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error('Erreur lors de l\'ajout des produits au panier :', error);
+    }
+}
+
+// Chargement initial des détails de la commande
+if (document.querySelector("#orderDetailsContainer")) {
+    document.addEventListener('DOMContentLoaded', async function() {
+        let authenticated = await isAuthenticated();
+        if (!authenticated) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        let params = new URLSearchParams(window.location.search);
+        let orderId = params.get('orderId');
+
+        if (orderId) {
+            let order = await fetchUserOrderDetails(orderId);
+            renderUserOrderDetails(order);
+        } else {
+            document.querySelector("#orderDetailsContainer").textContent = "ID de la commande manquant dans l'URL.";
+        }
+    });
+}
