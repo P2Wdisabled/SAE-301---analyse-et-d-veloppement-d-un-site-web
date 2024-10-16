@@ -72,6 +72,19 @@ function renderProducts(products) {
         let p2 = document.createElement("p");
         p2.textContent = `Prix : ${parseFloat(product.price).toFixed(2)} €`;
 
+        // Afficher le stock
+        let stockInfo = document.createElement("p");
+        if (product.stock <= 0) {
+            stockInfo.textContent = "Temporairement indisponible";
+            stockInfo.style.color = "red";
+        } else if (product.stock <= 5) {
+            stockInfo.textContent = "Bientôt épuisé";
+            stockInfo.style.color = "orange";
+        } else {
+            stockInfo.textContent = "En stock";
+            stockInfo.style.color = "green";
+        }
+
         // Lien vers la page de détails du produit
         let detailsLink = document.createElement("a");
         detailsLink.href = `product.html?id=${product.id}`;
@@ -81,6 +94,7 @@ function renderProducts(products) {
         div.appendChild(h2);
         div.appendChild(p1);
         div.appendChild(p2);
+        div.appendChild(stockInfo);
         div.appendChild(detailsLink);
 
         container.appendChild(div);
@@ -124,10 +138,24 @@ function renderProductDetails(product) {
     let p2 = document.createElement("p");
     p2.textContent = `Prix : ${parseFloat(product.price).toFixed(2)} €`;
 
+    // Afficher le stock
+    let stockInfo = document.createElement("p");
+    if (product.stock <= 0) {
+        stockInfo.textContent = "Temporairement indisponible";
+        stockInfo.style.color = "red";
+    } else if (product.stock <= 5) {
+        stockInfo.textContent = "Bientôt épuisé";
+        stockInfo.style.color = "orange";
+    } else {
+        stockInfo.textContent = "En stock";
+        stockInfo.style.color = "green";
+    }
+
     div.appendChild(img);
     div.appendChild(h2);
     div.appendChild(p1);
     div.appendChild(p2);
+    div.appendChild(stockInfo);
 
     // Afficher les options
     let optionsDiv = document.createElement("div");
@@ -166,8 +194,13 @@ function renderProductDetails(product) {
     // Bouton "Ajouter au panier"
     let addToCartButton = document.createElement("button");
     addToCartButton.textContent = "Ajouter au panier";
+
+    if (product.stock <= 0) {
+        addToCartButton.disabled = true;
+    }
+
     addToCartButton.addEventListener("click", async function() {
-        let quantity = 1; // Vous pouvez ajouter un champ pour la quantité si vous le souhaitez
+        let quantity = parseInt(document.querySelector("#quantityInput").value);
         let result = await addToCart(product.id, quantity, selectedOptions);
         if (result.success) {
             alert(result.success);
@@ -176,6 +209,25 @@ function renderProductDetails(product) {
         }
     });
 
+    // Sélecteur de quantité
+    let quantityLabel = document.createElement("label");
+    quantityLabel.textContent = "Quantité : ";
+
+    let quantityInput = document.createElement("input");
+    quantityInput.type = "number";
+    quantityInput.id = "quantityInput";
+    quantityInput.value = 1;
+    quantityInput.min = 1;
+    quantityInput.max = product.stock;
+
+    if (product.stock <= 0) {
+        quantityInput.disabled = true;
+    }
+
+    quantityLabel.appendChild(quantityInput);
+
+    div.appendChild(quantityLabel);
+    div.appendChild(document.createElement("br"));
     div.appendChild(addToCartButton);
 
     container.appendChild(div);
@@ -265,6 +317,7 @@ function renderCart(cart) {
         quantityInput.type = "number";
         quantityInput.value = item.quantity;
         quantityInput.min = 1;
+        quantityInput.max = item.stock;
         quantityInput.addEventListener("change", function() {
             updateCartItem(index, parseInt(this.value));
         });
@@ -327,6 +380,8 @@ async function updateCartItem(index, quantity) {
             renderCart(cart);
         } else {
             alert(result.error);
+            let cart = await fetchCart();
+            renderCart(cart);
         }
     } catch (error) {
         console.error('Erreur lors de la mise à jour du panier :', error);
@@ -381,6 +436,9 @@ async function checkout() {
             window.location.href = 'login.html';
         } else {
             alert(result.error);
+            // Rafraîchir le panier pour mettre à jour les quantités et le stock
+            let cart = await fetchCart();
+            renderCart(cart);
         }
     } catch (error) {
         console.error('Erreur lors de la validation du panier :', error);

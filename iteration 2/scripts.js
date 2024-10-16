@@ -1,74 +1,54 @@
-// Données des produits
-let data = {
-    "products": [
-        {
-            "id": 1,
-            "name": "Super Mario World™ Mario et Yoshi",
-            "image": "assets/SMWMY.jpg",
-            "price": 19.99,
-            "pieces": 1215,
-            "age": "18+",
-            "categories": [
-                "LEGO® Super Mario™",
-                "Fantastique",
-                "Jeux vidéo"
-            ] 
-        },
-        {
-            "id": 2,
-            "name": "Le vaisseau de transport impérial contre le speeder des éclaireurs rebelles",
-            "image": "assets/VTICSER.jpg",
-            "price": 29.99,
-            "pieces": 383,
-            "age": "8+",
-            "categories": [
-                "Star Wars™",
-                "Fantastique"
-            ]
-        },
-        {
-            "id": 3,
-            "name": "La couronne",
-            "image": "assets/LC.jpg",
-            "price": 9.99,
-            "pieces": 1194,
-            "age": "18+",
-            "categories": [
-                "LEGO® Icons",
-                "Collection Botanique"
-            ]
+// scripts.js
+
+// Fonction pour récupérer toutes les catégories
+async function fetchAllCategories() {
+    try {
+        let response = await fetch('requester.php?action=getAllCategories');
+        let categories = await response.json();
+        return categories;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des catégories :', error);
+    }
+}
+
+// Fonction pour récupérer les produits, avec option de filtrage
+async function fetchAllProducts(categoryId = null) {
+    try {
+        let url = 'requester.php?action=getAllProducts';
+        if (categoryId) {
+            url += `&categoryId=${categoryId}`;
         }
-    ]
-};
+        let response = await fetch(url);
+        let products = await response.json();
+        return products;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des produits :', error);
+    }
+}
 
-// Obtenir toutes les catégories uniques
-let allCategories = new Set();
-data.products.forEach(product => {
-    product.categories.forEach(category => allCategories.add(category));
-});
-allCategories = Array.from(allCategories).sort();
+// Fonction pour afficher les catégories dans un select
+function renderCategories(categories) {
+    let categorySelect = document.querySelector("#categorySelect");
+    categorySelect.innerHTML = '';
 
-// Ajouter l'option 'All' pour afficher tous les produits
-allCategories.unshift('All');
+    // Ajouter l'option "All"
+    let allOption = document.createElement('option');
+    allOption.value = '';
+    allOption.textContent = 'All';
+    categorySelect.appendChild(allOption);
 
-// Générer les options du select
-let categorySelect = document.querySelector("#categorySelect");
-allCategories.forEach(category => {
-    let option = document.createElement('option');
-    option.value = category;
-    option.textContent = category;
-    categorySelect.appendChild(option);
-});
+    categories.forEach(category => {
+        let option = document.createElement('option');
+        option.value = category.id;
+        option.textContent = category.name;
+        categorySelect.appendChild(option);
+    });
+}
 
-// Fonction pour afficher les produits
+// Fonction pour afficher les produits (identique à l'itération 1)
 function renderProducts(products) {
     let container = document.querySelector("#productsContainer");
-    container.innerHTML = ''; // Vider le conteneur
-
-    if (products.length === 0) {
-        container.textContent = 'Aucun produit trouvé pour la catégorie sélectionnée.';
-        return;
-    }
+    container.innerHTML = '';
 
     products.forEach(product => {
         let div = document.createElement("div");
@@ -85,7 +65,7 @@ function renderProducts(products) {
         p1.textContent = `Âge : ${product.age}, Pièces : ${product.pieces}`;
 
         let p2 = document.createElement("p");
-        p2.textContent = `Prix : ${product.price.toFixed(2)} €`;
+        p2.textContent = `Prix : ${parseFloat(product.price).toFixed(2)} €`;
 
         div.appendChild(img);
         div.appendChild(h2);
@@ -96,23 +76,18 @@ function renderProducts(products) {
     });
 }
 
-// Afficher tous les produits au chargement de la page
-renderProducts(data.products);
+// Chargement initial
+document.addEventListener('DOMContentLoaded', async function() {
+    let categories = await fetchAllCategories();
+    renderCategories(categories);
 
-// Écouter le changement de sélection
-categorySelect.addEventListener('change', function() {
-    let selectedCategory = categorySelect.value;
-    let filteredProducts;
+    let products = await fetchAllProducts();
+    renderProducts(products);
 
-    if (selectedCategory === 'All') {
-        // Afficher tous les produits
-        filteredProducts = data.products;
-    } else {
-        // Filtrer les produits par catégorie
-        filteredProducts = data.products.filter(product => {
-            return product.categories.includes(selectedCategory);
-        });
-    }
-
-    renderProducts(filteredProducts);
+    // Écouteur pour le select des catégories
+    document.querySelector('#categorySelect').addEventListener('change', async function() {
+        let categoryId = this.value || null;
+        let products = await fetchAllProducts(categoryId);
+        renderProducts(products);
+    });
 });

@@ -1,50 +1,20 @@
-// Données des produits
-let data = {
-    "products": [
-        {
-            "id": 1,
-            "name": "Super Mario World™ Mario et Yoshi",
-            "image": "assets/SMWMY.jpg",
-            "price": 19.99,
-            "pieces": 1215,
-            "age": "18+",
-            "categories": [
-                "LEGO® Super Mario™",
-                "Fantastique",
-                "Jeux vidéo"
-            ] 
-        },
-        {
-            "id": 2,
-            "name": "Le vaisseau de transport impérial contre le speeder des éclaireurs rebelles",
-            "image": "assets/VTICSER.jpg",
-            "price": 29.99,
-            "pieces": 383,
-            "age": "8+",
-            "categories": [
-                "Star Wars™",
-                "Fantastique"
-            ]
-        },
-        {
-            "id": 3,
-            "name": "La couronne",
-            "image": "assets/LC.jpg",
-            "price": 9.99,
-            "pieces": 1194,
-            "age": "18+",
-            "categories": [
-                "LEGO® Icons",
-                "Collection Botanique"
-            ]
-        }
-    ]
-};
+// scripts.js
+
+// Fonction pour récupérer tous les produits
+async function fetchAllProducts() {
+    try {
+        let response = await fetch('requester.php?action=getAllProducts');
+        let products = await response.json();
+        return products;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des produits :', error);
+    }
+}
 
 // Fonction pour afficher les produits
 function renderProducts(products) {
     let container = document.querySelector("#productsContainer");
-    container.innerHTML = ''; // Vider le conteneur
+    container.innerHTML = '';
 
     products.forEach(product => {
         let div = document.createElement("div");
@@ -61,7 +31,7 @@ function renderProducts(products) {
         p1.textContent = `Âge : ${product.age}, Pièces : ${product.pieces}`;
 
         let p2 = document.createElement("p");
-        p2.textContent = `Prix : ${product.price.toFixed(2)} €`;
+        p2.textContent = `Prix : ${parseFloat(product.price).toFixed(2)} €`;
 
         div.appendChild(img);
         div.appendChild(h2);
@@ -72,5 +42,8 @@ function renderProducts(products) {
     });
 }
 
-// Afficher tous les produits au chargement de la page
-renderProducts(data.products);
+// Chargement initial des produits
+document.addEventListener('DOMContentLoaded', async function() {
+    let products = await fetchAllProducts();
+    renderProducts(products);
+});
