@@ -22,23 +22,32 @@ class CartController extends Controller {
     }
 
     /**
-     * Récupère l'ID de l'utilisateur à partir du token dans les headers.
+     * Récupère l'ID de l'utilisateur à partir du token dans les headers ou les paramètres de requête.
+     * Pour simplifier, nous supposons que le token est l'ID de l'utilisateur en clair.
+     * 
+     * **Important :** Cette méthode est **INSECURE** et doit être utilisée uniquement pour des tests.
      */
     private function getAuthenticatedUserId(): ?int {
         $headers = getallheaders();
         if (isset($headers['Authorization'])) {
             $authHeader = $headers['Authorization'];
-            list($type, $token) = explode(" ", $authHeader);
-            if ($type === 'Bearer' && !empty($token)) {
-                // Valider le token et extraire l'ID de l'utilisateur
-                // Implémentez ici la validation de votre token
-                // Pour simplifier, supposons que le token est l'ID de l'utilisateur en clair
-                // Attention : Ne faites PAS cela en production !
+            $parts = explode(" ", $authHeader);
+            if (count($parts) === 2 && $parts[0] === 'Bearer') {
+                $token = $parts[1];
                 if (is_numeric($token)) {
                     return (int)$token;
                 }
             }
         }
+
+        // Si le token n'est pas trouvé dans les headers, vérifier dans les paramètres de requête
+        if (isset($_GET['token'])) {
+            $token = $_GET['token'];
+            if (is_numeric($token)) {
+                return (int)$token;
+            }
+        }
+
         return null;
     }
 
@@ -63,7 +72,7 @@ class CartController extends Controller {
 
         $json = $request->getJson();
         $obj = json_decode($json, true);
-        if (!$obj) return false;
+        if (!$obj) return ["error" => "Invalid JSON"];
 
         // Ajouter un produit au panier
         if (isset($obj['add_item'])) {
@@ -106,7 +115,7 @@ class CartController extends Controller {
 
         $json = $request->getJson();
         $obj = json_decode($json, true);
-        if (!$obj) return false;
+        if (!$obj) return ["error" => "Invalid JSON"];
 
         // Supprimer un produit du panier
         if (isset($obj['remove_item'])) {
@@ -142,7 +151,7 @@ class CartController extends Controller {
 
         $json = $request->getJson();
         $obj = json_decode($json, true);
-        if (!$obj) return false;
+        if (!$obj) return ["error" => "Invalid JSON"];
 
         // Modifier la quantité d'un produit dans le panier
         if (isset($obj['update_item'])) {

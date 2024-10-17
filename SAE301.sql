@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 17 oct. 2024 à 14:35
+-- Généré le : jeu. 17 oct. 2024 à 15:10
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -34,6 +34,15 @@ CREATE TABLE `carts` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
+(2, 2, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
+(3, 3, '2024-10-17 14:35:00', '2024-10-17 14:35:00');
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +58,17 @@ CREATE TABLE `cart_items` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `cart_items`
+--
+
+INSERT INTO `cart_items` (`id`, `cart_id`, `product_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 2, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
+(2, 1, 2, 1, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
+(3, 2, 3, 5, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
+(4, 3, 4, 1, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
+(5, 3, 5, 1, '2024-10-17 14:35:00', '2024-10-17 14:35:00');
+
 -- --------------------------------------------------------
 
 --
@@ -63,18 +83,6 @@ CREATE TABLE `categories` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `categories`
---
-
-INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Vêtements', 'Vêtements et accessoires LEGO', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
-(2, 'Sets', 'Sets de construction LEGO', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
-(3, 'Briques', 'Différentes briques LEGO', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
-(4, 'Lego', 'Sets LEGO pour tous les âges', '2024-10-17 14:34:20', '2024-10-17 14:34:20'),
-(5, 'Electronics', 'Gadgets et appareils électroniques', '2024-10-17 14:34:20', '2024-10-17 14:34:20'),
-(6, 'Books', 'Livres de toutes sortes', '2024-10-17 14:34:20', '2024-10-17 14:34:20');
-
 -- --------------------------------------------------------
 
 --
@@ -88,18 +96,6 @@ CREATE TABLE `option_values` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `option_values`
---
-
-INSERT INTO `option_values` (`id`, `product_option_id`, `value`, `created_at`, `updated_at`) VALUES
-(1, 1, 'S', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
-(2, 1, 'M', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
-(3, 1, 'L', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
-(4, 2, 'Rouge', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
-(5, 2, 'Bleu', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
-(6, 2, 'Vert', '2024-10-17 11:02:34', '2024-10-17 11:02:34');
 
 -- --------------------------------------------------------
 
@@ -213,15 +209,6 @@ CREATE TABLE `product_categories` (
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `product_categories`
---
-
-INSERT INTO `product_categories` (`product_id`, `category_id`) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -236,14 +223,6 @@ CREATE TABLE `product_options` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `product_options`
---
-
-INSERT INTO `product_options` (`id`, `product_id`, `name`, `default_value`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Taille', 'M', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
-(2, 1, 'Couleur', 'Rouge', '2024-10-17 11:02:34', '2024-10-17 11:02:34');
 
 -- --------------------------------------------------------
 
@@ -275,6 +254,15 @@ CREATE TABLE `tokens` (
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `tokens`
+--
+
+INSERT INTO `tokens` (`id`, `user_id`, `token`, `expires_at`, `created_at`) VALUES
+(1, 1, '1', '2025-10-17 19:35:00', '2024-10-17 14:35:00'),
+(2, 2, '2', '2025-10-17 19:35:00', '2024-10-17 14:35:00'),
+(3, 3, '3', '2025-10-17 19:35:00', '2024-10-17 14:35:00');
+
 -- --------------------------------------------------------
 
 --
@@ -290,6 +278,15 @@ CREATE TABLE `users` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password_hash`, `is_admin`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@lego.com', '$2y$10$e0NRFqjG.vYvXGkGeW6vZeAeUTjvVt5jF0kJKiOqK5v7ejG3YYfY.', 1, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
+(2, 'john_doe', 'john@example.com', '$2y$10$uOq1iV3vF1yMJVq9Tg3EuOjVvQdE6U9yx/1iJkZ1JHyJ2mZcUlh1K', 0, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
+(3, 'jane_smith', 'jane@example.com', '$2y$10$CqvRZ8z8J7u0zK/Vq2jXWe5G8hG/8Fq9Z0sE9LyHkKdO/ZzE4Vj1m', 0, '2024-10-17 14:35:00', '2024-10-17 14:35:00');
 
 -- --------------------------------------------------------
 
@@ -422,25 +419,25 @@ ALTER TABLE `variant_options`
 -- AUTO_INCREMENT pour la table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `option_values`
 --
 ALTER TABLE `option_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `orders`
@@ -470,7 +467,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT pour la table `product_options`
 --
 ALTER TABLE `product_options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `product_variants`
@@ -482,13 +479,13 @@ ALTER TABLE `product_variants`
 -- AUTO_INCREMENT pour la table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées
