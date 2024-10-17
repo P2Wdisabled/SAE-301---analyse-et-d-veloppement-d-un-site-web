@@ -4,6 +4,7 @@ require_once "Controller/ProductController.php";
 require_once "Controller/CategoryController.php";
 require_once "Controller/ProductOptionController.php";
 require_once "Controller/CartController.php";
+require_once "Controller/OrderController.php";
 
 /**
  * $router est notre routeur rudimentaire.
@@ -13,7 +14,8 @@ $router = [
     "products" => new ProductController(),
     "categories" => new CategoryController(),
     "product_options" => new ProductOptionController(),
-    "cart" => new CartController()
+    "cart" => new CartController(),
+    "order" => new OrderController(),
 ];
 
 // Objet HttpRequest qui contient toutes les infos utiles sur la requête

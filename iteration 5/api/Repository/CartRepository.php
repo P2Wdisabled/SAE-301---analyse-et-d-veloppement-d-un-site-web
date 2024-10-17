@@ -28,9 +28,9 @@ class CartRepository extends EntityRepository {
 
         // Récupérer les items du panier
         $stmt_items = $this->cnx->prepare("
-            SELECT ci.product_id, p.name, p.description, p.price, ci.quantity
+            SELECT ci.product_variant_id, p.name, p.description, p.price, ci.quantity
             FROM cart_items ci
-            JOIN products p ON ci.product_id = p.id
+            JOIN products p ON ci.product_variant_id = p.id
             WHERE ci.cart_id = :cart_id
         ");
         $stmt_items->bindParam(':cart_id', $id, PDO::PARAM_INT);

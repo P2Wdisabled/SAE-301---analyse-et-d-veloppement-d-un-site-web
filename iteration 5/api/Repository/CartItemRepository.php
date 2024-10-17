@@ -188,5 +188,18 @@ class CartItemRepository extends EntityRepository {
             return false;
         }
     }
+
+        /**
+     * Supprime tous les items d'un panier spécifique.
+     */
+    public function deleteByCartId(int $cart_id): bool {
+        try {
+            $stmt = $this->cnx->prepare("DELETE FROM cart_items WHERE cart_id = :cart_id");
+            $stmt->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }
 ?>
