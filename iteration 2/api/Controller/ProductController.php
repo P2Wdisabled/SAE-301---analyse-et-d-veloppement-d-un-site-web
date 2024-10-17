@@ -16,6 +16,7 @@ class ProductController extends Controller {
 
     protected function processGetRequest(HttpRequest $request) {
         $id = $request->getId();
+        $queryParams = $_GET;
 
         if ($id){
             // URI est .../products/{id}
@@ -24,6 +25,17 @@ class ProductController extends Controller {
         }
         else{
             // URI est .../products
+            if (isset($queryParams['category'])) {
+                $category_id = (int)$queryParams['category'];
+                $products = $this->products->findAll();
+                $filtered = [];
+                foreach ($products as $prod) {
+                    if (in_array($category_id, $prod->getCategories())) {
+                        $filtered[] = $prod;
+                    }
+                }
+                return $filtered;
+            }
             return $this->products->findAll();
         }
     }
@@ -38,6 +50,12 @@ class ProductController extends Controller {
           ->setDescription($obj['description'] ?? '')
           ->setPrice(floatval($obj['price'] ?? 0))
           ->setImageUrl($obj['image_url'] ?? '');
+
+        // Gestion des catégories (array)
+        if (isset($obj['categories']) && is_array($obj['categories'])) {
+            $p->setCategories($obj['categories']);
+        }
+
         $ok = $this->products->save($p); 
         return $ok ? $p : false;
     }
@@ -64,6 +82,12 @@ class ProductController extends Controller {
               ->setDescription($obj['description'] ?? $p->getDescription())
               ->setPrice(floatval($obj['price'] ?? $p->getPrice()))
               ->setImageUrl($obj['image_url'] ?? $p->getImageUrl());
+
+            // Gestion des catégories (array)
+            if (isset($obj['categories']) && is_array($obj['categories'])) {
+                $p->setCategories($obj['categories']);
+            }
+
             return $this->products->update($p);
         }
         return false;

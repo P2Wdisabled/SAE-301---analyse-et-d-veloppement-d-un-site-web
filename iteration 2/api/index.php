@@ -1,13 +1,16 @@
 <?php
 require_once "Class/HttpRequest.php";
 require_once "Controller/ProductController.php";
+require_once "Controller/CategoryController.php";
+require_once "Controller/ProductOptionController.php";
 
 /**
  * $router est notre routeur rudimentaire.
  * Il associe chaque ressource à son contrôleur.
  */
 $router = [
-    "products" => new ProductController()
+    "products" => new ProductController(),
+    "categories" => new CategoryController(),
 ];
 
 // Objet HttpRequest qui contient toutes les infos utiles sur la requête

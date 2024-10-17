@@ -26,6 +26,15 @@ class ProductRepository extends EntityRepository {
                 ->setPrice(floatval($prod['price']))
                 ->setImageUrl($prod['image_url']);
 
+        // Récupérer les catégories associées
+        $stmt_cat = $this->cnx->prepare("
+            SELECT category_id FROM product_categories WHERE product_id = :product_id
+        ");
+        $stmt_cat->bindParam(':product_id', $id, PDO::PARAM_INT);
+        $stmt_cat->execute();
+        $categories = $stmt_cat->fetchAll(PDO::FETCH_COLUMN, 0);
+        $product->setCategories($categories);
+
         return $product;
     }
 
@@ -41,6 +50,16 @@ class ProductRepository extends EntityRepository {
                     ->setDescription($prod['description'])
                     ->setPrice(floatval($prod['price']))
                     ->setImageUrl($prod['image_url']);
+
+            // Récupérer les catégories associées
+            $stmt_cat = $this->cnx->prepare("
+                SELECT category_id FROM product_categories WHERE product_id = :product_id
+            ");
+            $stmt_cat->bindParam(':product_id', $prod['id'], PDO::PARAM_INT);
+            $stmt_cat->execute();
+            $categories = $stmt_cat->fetchAll(PDO::FETCH_COLUMN, 0);
+            $product->setCategories($categories);
+
             $res[] = $product;
         }
         return $res;
@@ -48,6 +67,9 @@ class ProductRepository extends EntityRepository {
 
     public function save($product): bool {
         try {
+            $this->cnx->beginTransaction();
+
+            // Insérer le produit
             $stmt = $this->cnx->prepare("
                 INSERT INTO products (name, description, price, image_url)
                 VALUES (:name, :description, :price, :image_url)
@@ -57,25 +79,57 @@ class ProductRepository extends EntityRepository {
             $stmt->bindParam(':price', $product->getPrice());
             $stmt->bindParam(':image_url', $product->getImageUrl(), PDO::PARAM_STR);
             $stmt->execute();
-            $product->setId((int)$this->cnx->lastInsertId());
+            $product_id = $this->cnx->lastInsertId();
+            $product->setId((int)$product_id);
+
+            // Associer les catégories
+            if (!empty($product->getCategories())) {
+                $stmt_cat = $this->cnx->prepare("
+                    INSERT INTO product_categories (product_id, category_id)
+                    VALUES (:product_id, :category_id)
+                ");
+                foreach ($product->getCategories() as $cat_id) {
+                    $stmt_cat->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+                    $stmt_cat->bindParam(':category_id', $cat_id, PDO::PARAM_INT);
+                    $stmt_cat->execute();
+                }
+            }
+
+            $this->cnx->commit();
             return true;
         } catch (Exception $e) {
+            $this->cnx->rollBack();
             return false;
         }
     }
 
     public function delete($id): bool {
         try {
+            $this->cnx->beginTransaction();
+
+            // Supprimer les associations avec les catégories
+            $stmt_cat = $this->cnx->prepare("DELETE FROM product_categories WHERE product_id = :product_id");
+            $stmt_cat->bindParam(':product_id', $id, PDO::PARAM_INT);
+            $stmt_cat->execute();
+
+            // Supprimer le produit
             $stmt = $this->cnx->prepare("DELETE FROM products WHERE id = :id");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            return $stmt->execute();
+            $stmt->execute();
+
+            $this->cnx->commit();
+            return true;
         } catch (Exception $e) {
+            $this->cnx->rollBack();
             return false;
         }
     }
 
     public function update($product): bool {
         try {
+            $this->cnx->beginTransaction();
+
+            // Mettre à jour le produit
             $stmt = $this->cnx->prepare("
                 UPDATE products
                 SET name = :name, description = :description, price = :price, image_url = :image_url
@@ -86,8 +140,31 @@ class ProductRepository extends EntityRepository {
             $stmt->bindParam(':price', $product->getPrice());
             $stmt->bindParam(':image_url', $product->getImageUrl(), PDO::PARAM_STR);
             $stmt->bindParam(':id', $product->getId(), PDO::PARAM_INT);
-            return $stmt->execute();
+            $stmt->execute();
+
+            // Mettre à jour les catégories
+            // Supprimer les anciennes associations
+            $stmt_del_cat = $this->cnx->prepare("DELETE FROM product_categories WHERE product_id = :product_id");
+            $stmt_del_cat->bindParam(':product_id', $product->getId(), PDO::PARAM_INT);
+            $stmt_del_cat->execute();
+
+            // Ajouter les nouvelles associations
+            if (!empty($product->getCategories())) {
+                $stmt_add_cat = $this->cnx->prepare("
+                    INSERT INTO product_categories (product_id, category_id)
+                    VALUES (:product_id, :category_id)
+                ");
+                foreach ($product->getCategories() as $cat_id) {
+                    $stmt_add_cat->bindParam(':product_id', $product->getId(), PDO::PARAM_INT);
+                    $stmt_add_cat->bindParam(':category_id', $cat_id, PDO::PARAM_INT);
+                    $stmt_add_cat->execute();
+                }
+            }
+
+            $this->cnx->commit();
+            return true;
         } catch (Exception $e) {
+            $this->cnx->rollBack();
             return false;
         }
     }
