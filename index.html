@@ -8,7 +8,1046 @@
 </head>
 
 <body>
-    this is a test
+    <!doctype html>
+    <html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../dist/output.css" rel="stylesheet">
+    </head>
+
+    <body class="bg-gray-200">
+        <nav
+            class="relative px-4 py-4 flex pr-8 items-center justify-between  bg-white max-lg:border-b-4 lg:bg-yellow-300 max-lg:border-yellow-300 max-lg:border-solid">
+            <div class="flex justify-center ">
+                <div class="lg:hidden pr-4 pt-3">
+                    <button class="navbar-burger flex items-center flex-col text-blue-600 p-3 pt-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="10" viewBox="0 0 21 6" fill="none">
+                            <rect x="0.0429688" y="0.00976562" width="50" height="2" fill="black" />
+                            <rect x="0.0429688" y="4.00977" width="50" height="5" fill="black" />
+                        </svg>
+                        <h2 class="text-black text-xs  font-medium pl-2 pt-3">MENU</h2>
+                    </button>
+                </div>
+                <img src="../images/brand-lego.svg.png" alt="Lego Logo" class="lg:hidd min-h-20 min-w-14">
+            </div>
+
+            <ul class="max-lg:hidden flex flex-row text-center">
+                <li class="mb-1">
+                    <a class="block p-4 text-lg font-semibold text-black " href="#">BOUTIQUE</a>
+                </li>
+                <li class="mb-1">
+                    <a class=" block p-4  text-lg font-semibold text-black " href="#">DECOUVRIR</a>
+                </li>
+                <li class=" mb-1">
+                    <a class="block p-4  text-lg font-semibold text-black " href="#">AIDE</a>
+                </li>
+                <li class="p-2">
+                    <a class="block px-5 py-1.5 text-lg font-semibold text-red-600 bg-white rounded-md "
+                        href="#">NOËL</a>
+                </li>
+
+            </ul>
+
+            <ul class=" relative   flex lg:mx-auto   items-center w-auto space-x-6">
+                <li><img src="../images/Button menu - Search.png" alt="" class="min-w-8"></li>
+                <li><img src="../images/Button menu - Compte.png" alt="" class="min-w-8"></li>
+                <li><img src="../images/Button menu - Ma Liste de cadeaux.png" alt="" class="min-w-8"></li>
+                <li class="text-center"><img src="../images/Mask Group.png" alt="" class="min-w-8"><span
+                        class="absolute right-3">0</span></li>
+
+
+            </ul>
+
+        </nav>
+
+
+        <!-- 
+nav general -->
+        <div id="general" class="  navbar-menu relative z-50 hidden">
+            <nav class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                    <h3 class="text-xl">MENU</h3>
+                    <button class="navbar-close">
+                        <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex justify-center ">
+                    <button
+                        class="bg-blue-300 flex flex-row items-center  border-i max-w-fit py-3 px-44 m-4 relative -left-8 rounded-md text-xs font-medium shadow-2xl before:'→'">
+                        <img src="/images/Arrow 1.png" class="pr-2">
+                        ESPACE DE
+                        JEU</button>
+                </div>
+                <ul class="max-w-md">
+                    <li class="mb-1 flex flex-row box-border border-b-2 border-gray-400 border-solid">
+
+                        <a class="block p-4 text-base  text-red-600 font-medium   " href="#">PROMOTIONS</a>
+                    </li>
+
+                    <li class="mb-1 flex flex-row box-border border-b-2 border-gray-400 border-solid">
+
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">ACCUEIL</a>
+                    </li>
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a id="1" class="block p-4 text-base   border-b-1 border-gray-300 border-solid "
+                            onclick="navchange(id)" href="#">BOUTIQUES</a>
+                        <div class="flex justify-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 28"
+                                aria-hidden="true" class="relative top-5 ">
+                                <path d="M1.825 28L18 14 1.825 0 0 1.715 14.196 14 0 26.285z" fill="currentColor" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-base   border-b-1 border-gray-300 border-solid " href="#">DECOUVRIR</a>
+                        <div class="flex justify-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 28"
+                                aria-hidden="true" class="relative top-5 ">
+                                <path d="M1.825 28L18 14 1.825 0 0 1.715 14.196 14 0 26.285z" fill="currentColor" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-base   border-b-1 border-gray-300 border-solid " href="#">AIDE</a>
+                        <div class="flex justify-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 28"
+                                aria-hidden="true" class="relative top-5 ">
+                                <path d="M1.825 28L18 14 1.825 0 0 1.715 14.196 14 0 26.285z" fill="currentColor" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="mb-1 flex flex-row box-border border-b-2 border-gray-400 border-solid">
+                        <img src="../images/Button menu - Compte.png" alt="Compte" class="max-w-40  relative   ">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Compte</a>
+                    </li>
+                    <li class="mb-1 flex flex-row box-border border-b-2 border-gray-400 border-solid">
+                        <img src="../images/insidersOut-1007c87df3063963a6a3f7de243ac98e.svg.png" alt="Localisation"
+                            class="max-w-10 max-h-6 relative top-4  ">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Rejoins
+                            LEGO Insiders</a>
+                    </li>
+                    <li class="mb-1 flex flex-row box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Ma liste
+                            de cadeaux</a>
+                    </li>
+                    <li class="mb-1 flex flex-row box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Mon panier
+                            (0)</a>
+                    </li>
+                    <li class="mb-1 flex flex-row box-border border-b-2 border-gray-400 border-solid">
+                        <img src="../images/map.png" alt="Localisation" class="max-w-10 max-h-6 relative top-4  ">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">France</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- nav boutique  -->
+        <div id="boutique" class="navbar-menu  relative z-50 hidden">
+            <nav class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                    <h3 class="text-xl">MENU</h3>
+                    <button class="navbar-close">
+                        <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <ul class="max-w-md">
+                    <li
+                        class="mb-1 flex flex-row justify-between box-border border-b-2  bg-blue-900 border-gray-400 border-solid">
+                        <a class="block p-3  text-base underline font-medium text-white  border-b-1 border-gray-300 border-solid "
+                            href="#">BOUTIQUE</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-base  font-medium border-b-1 border-gray-300 border-solid "
+                            href="#">Âges</a>
+                        <div class="flex justify-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 28"
+                                aria-hidden="true" class="relative top-5 ">
+                                <path d="M1.825 28L18 14 1.825 0 0 1.715 14.196 14 0 26.285z" fill="currentColor" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Fourchette
+                            de
+                            prux</a>
+                        <div class="flex justify-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 28"
+                                aria-hidden="true" class="relative top-5 ">
+                                <path d="M1.825 28L18 14 1.825 0 0 1.715 14.196 14 0 26.285z" fill="currentColor" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Produit
+                            Lego</a>
+                        <div class="flex justify-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 28"
+                                aria-hidden="true" class="relative top-5 ">
+                                <path d="M1.825 28L18 14 1.825 0 0 1.715 14.196 14 0 26.285z" fill="currentColor" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Intêret</a>
+                        <div class="flex justify-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 28"
+                                aria-hidden="true" class="relative top-5 ">
+                                <path d="M1.825 28L18 14 1.825 0 0 1.715 14.196 14 0 26.285z" fill="currentColor" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Briques et
+                            pièces</a>
+                        <div class="flex justify-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 28"
+                                aria-hidden="true" class="relative top-5 ">
+                                <path d="M1.825 28L18 14 1.825 0 0 1.715 14.196 14 0 26.285z" fill="currentColor" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Exclusivités</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Nouveautés</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Meilleurs
+                            Ventes</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Décoration
+                            d'intérieur</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Offres et
+                            Promos</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Cartes-cadeaux</a>
+
+                    </li>
+
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Bientôt
+                            disponible</a>
+
+                    </li>
+
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Dénicheur
+                            de
+                            cadeaux</a>
+
+                    </li>
+
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Bientôt
+                            retiré</a>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <!-- 
+nav jouet par theme -->
+
+        <div id="3" class="navbar-menu 0 relative z-50 hidden">
+            <nav class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                    <h3 class="text-xl">MENU</h3>
+                    <button class="navbar-close">
+                        <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <ul class="max-w-md ">
+                    <li
+                        class="mb-1 flex flex-row justify-between box-border border-b-2  bg-blue-900 border-gray-400 border-solid">
+                        <a class="block p-3  text-base underline font-medium text-white  border-b-1 border-gray-300 border-solid "
+                            href="#">JOUET par thème</a>
+
+                    </li>
+
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Harry
+                            Potter</a>
+
+                    </li>
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Architecture</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Batman</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Collection
+                            Botanique</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">BrickHeadz</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Exclusivités</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">City</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Classic
+                        </a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Creator
+                            Expert</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">DC</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">DC</a>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- nav age -->
+        <div id="4" class="navbar-menu  relative z-50 hidden">
+            <nav class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                    <h3 class="text-xl">MENU</h3>
+                    <button class="navbar-close">
+                        <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <ul class="max-w-md ">
+                    <li
+                        class="mb-1 flex flex-row justify-between box-border border-b-2  bg-blue-900 border-gray-400 border-solid">
+                        <a class="block p-3  text-base underline font-medium text-white  border-b-1 border-gray-300 border-solid "
+                            href="#">Âge</a>
+
+                    </li>
+
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">1.5+</a>
+
+                    </li>
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">4+</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">6+</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">9+</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">13+</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">18+</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- nav Fourchette de prix -->
+        <div id="5" class="navbar-menu  relative z-50 hidden">
+            <nav class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                    <h3 class="text-xl">MENU</h3>
+                    <button class="navbar-close">
+                        <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <ul class="max-w-md ">
+                    <li
+                        class="mb-1 flex flex-row justify-between box-border border-b-2  bg-blue-900 border-gray-400 border-solid">
+                        <a class="block p-3  text-base underline font-medium text-white  border-b-1 border-gray-300 border-solid "
+                            href="#">Fourchette de Prix</a>
+
+                    </li>
+
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Moins dde
+                            20€</a>
+
+                    </li>
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">20€ - 50
+                            €</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">50€ -
+                            100€</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">100€ -
+                            200€</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">plus de
+                            200€</a>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- nav Produit Lego -->
+        <div id="6" class="navbar-menu  relative z-50 hidden">
+            <nav class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                    <h3 class="text-xl">MENU</h3>
+                    <button class="navbar-close">
+                        <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <ul class="max-w-md ">
+                    <li
+                        class="mb-1 flex flex-row justify-between box-border border-b-2  bg-blue-900 border-gray-400 border-solid">
+                        <a class="block p-3  text-base underline font-medium text-white  border-b-1 border-gray-300 border-solid "
+                            href="#">Produit Lego</a>
+
+                    </li>
+
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Accesoires</a>
+
+                    </li>
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Sac a
+                            dos</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">livres</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Vêtements</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Porte-clés</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Lunchbox</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Peluches</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Puzzles et
+                            jeux de société</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Article de
+                            papeterie</a>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- nav interet  -->
+        <div id="7" class="navbar-menu  relative z-50 hidden">
+            <nav class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                    <h3 class="text-xl">MENU</h3>
+                    <button class="navbar-close">
+                        <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <ul class="max-w-md ">
+                    <li
+                        class="mb-1 flex flex-row justify-between box-border border-b-2  bg-blue-900 border-gray-400 border-solid">
+                        <a class="block p-3  text-base underline font-medium text-white  border-b-1 border-gray-300 border-solid "
+                            href="#">intérets</a>
+
+                    </li>
+
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Espace
+                            Grand
+                            enfants</a>
+
+                    </li>
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Animaux
+                        </a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Loisirs
+                            créatif</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Bâtiments</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Voiture</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Codage
+                            pour
+                            les enfants</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Dragons</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                            href="#">Fantastique</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Films</a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Formule
+                            1</a>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+
+        <!-- nav Brique et pièces-->
+        <div id="8" class="navbar-menu  relative z-50 hidden">
+            <nav class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                    <h3 class="text-xl">MENU</h3>
+                    <button class="navbar-close">
+                        <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <ul class="max-w-md ">
+                    <li
+                        class="mb-1 flex flex-row justify-between box-border border-b-2  bg-blue-900 border-gray-400 border-solid">
+                        <a class="block p-3  text-base underline font-medium text-white  border-b-1 border-gray-300 border-solid "
+                            href="#">Brique et pièces</a>
+
+                    </li>
+
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Pick a
+                            Brick</a>
+
+                    </li>
+
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Pièces par
+                            categories </a>
+
+                    </li>
+                    <li class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                        <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid " href="#">Pièces par
+                            couleur</a>
+
+                    </li>
+                </ul>
+
+
+                <!-- nav decouvrir -->
+                <div id="9" class="navbar-menu  relative z-50 hidden">
+                    <nav
+                        class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                        <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                            <h3 class="text-xl">MENU</h3>
+                            <button class="navbar-close">
+                                <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                                    xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <ul class="max-w-md">
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2  bg-blue-900 border-gray-400 border-solid">
+                                <a class="block p-3  text-base underline font-medium text-white  border-b-1 border-gray-300 border-solid "
+                                    href="#">DECOUVRIR</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-base  font-medium border-b-1 border-gray-300 border-solid "
+                                    href="#">Nos
+                                    valeurs</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Nos
+                                    applications</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Nos
+                                    magazines</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Tous
+                                    les
+                                    thèmes LEGO</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Tous
+                                    les
+                                    intérets LEGO</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Trouve
+                                    de
+                                    l'inspiration</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Espace
+                                    grand
+                                    enfants</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Pour
+                                    les
+                                    familles</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">LEGO
+                                    Fornite</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">LEGO
+                                    Insiders</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">LEGO
+                                    Mosaic
+                                    Maker</a>
+
+                            </li>
+
+
+                        </ul>
+                    </nav>
+                </div>
+
+
+
+
+                <!-- nav AIDE  -->
+                <div id="10" class="navbar-menu  relative z-50 hidden">
+                    <nav
+                        class=" lg:hidden fixed top-0 left-0 bottom-0 flex flex-col w-nav-size px-6 bg-white  overflow-y-auto">
+                        <div class="flex flex-row justify-between py-4 border-b-4 border-yellow-400">
+                            <h3 class="text-xl">MENU</h3>
+                            <button class="navbar-close">
+                                <svg class="max-w-6 relative -left-16 top-1    text-gray-400 cursor-pointer hover:text-gray-500"
+                                    xmlns="http://www.w3.org/2000/svg" width="2rem" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <ul class="max-w-md">
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2  bg-blue-900 border-gray-400 border-solid">
+                                <a class="block p-3  text-base underline font-medium text-white  border-b-1 border-gray-300 border-solid "
+                                    href="#">AIDE</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-base  font-medium border-b-1 border-gray-300 border-solid "
+                                    href="#">Verifier l'etat de ma commande</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Livraison et
+                                    retours</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Trouver un
+                                    LEGO Store</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Instructions
+                                    de montage</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">FAQ</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Contacte-nous</a>
+
+                            </li>
+                            <li
+                                class="mb-1 flex flex-row justify-between box-border border-b-2 border-gray-400 border-solid">
+                                <a class="block p-4 text-sm  black border-b-1 border-gray-300 border-solid "
+                                    href="#">Pièces
+                                    manquantes</a>
+
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
+
+    <script>
+        // let nav = document.querySelector('.navbar-menu');
+        // nav.addEventListener('click', changenav(id));
+        let allnav = document.querySelectorAll('.navbar-menu');
+        let generalnav = document.getElementById('general');
+        generalnav.classList.add(opacity : 1);
+        allnav.classList.add(opacity - 0);
+
+        // let changenav = function (id) {
+        //     if (id == 1) {
+        //         let nav = document.getElementById('boutique');
+        //         nav.classList.toggle('hidden');
+
+        //     }
+        // }
+
+        // Burger menus
+        document.addEventListener('DOMContentLoaded', function () {
+            // open
+            const burger = document.querySelectorAll('.navbar-burger');
+            const menu = document.querySelectorAll('.navbar-menu');
+
+            if (burger.length && menu.length) {
+                for (var i = 0; i < burger.length; i++) {
+                    burger[i].addEventListener('click', function () {
+                        for (var j = 0; j < menu.length; j++) {
+                            menu[j].classList.toggle('hidden');
+                        }
+                    });
+                }
+            }
+
+            // close
+            const close = document.querySelectorAll('.navbar-close');
+            const backdrop = document.querySelectorAll('.navbar-backdrop');
+
+            if (close.length) {
+                for (var i = 0; i < close.length; i++) {
+                    close[i].addEventListener('click', function () {
+                        for (var j = 0; j < menu.length; j++) {
+                            menu[j].classList.toggle('hidden');
+                        }
+                    });
+                }
+            }
+
+            if (backdrop.length) {
+                for (var i = 0; i < backdrop.length; i++) {
+                    backdrop[i].addEventListener('click', function () {
+                        for (var j = 0; j < menu.length; j++) {
+                            menu[j].classList.toggle('hidden');
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <section class="w-card-size1 h-card-height1 bg-white p-4">
+        <div class="bg-white p-4">
+            <img src="../images/Button - Ajouter à la liste de cadeaux.png" alt="Coeur" class="">
+            <img src="../images/Picture → 21351_Prod.png.png" alt="Set Lego" class="">
+        </div>
+        <h1 class="text-base font-bold p-2">L'Étrange Noël de Monsieur Jack -
+            Disney Tim Burton </h1>
+        <div class="flex p-2 ">
+            <img src="../images/star_yellow_outline_and_flat - etoile.jpg" alt="Star" class="max-w-5">
+            <img src="../images/star_yellow_outline_and_flat - etoile.jpg" alt="Star" class="max-w-5">
+            <img src="../images/star_yellow_outline_and_flat - etoile.jpg" alt="Star" class="max-w-5">
+            <img src="../images/star_yellow_outline_and_flat - etoile.jpg" alt="Star" class="max-w-5">
+            <img src="../images/star_yellow_outline_and_flat - demi etoile.jpg" alt="Star" class="max-w-5">
+        </div>
+
+        <h2 class="font-bold text-xl p-2">199.99€</h2>
+        <button
+            class="text-center p-2 bg-orange-600  px-16 py-3 font-bold flex hover:bg-transparent border-orange-600 border-2 border-solid">Ajouter
+            au Panier</button>
+    </section>
+    <section class="w-card-size2 h-card-height2 bg-white p-4">
+        <div class="bg-white p-4">
+            <img src="../images/Button - Ajouter à la liste de cadeaux.png" alt="Coeur" class="">
+            <img src="../images/Picture → 21351_Prod.png.png" alt="Set Lego" class="w-card-size2">
+        </div>
+        <ul class="flex flex-row justify-between max-w-40 py-4">
+            <li class="flex flex-row  p-2"><img src="../images/Img - Âges_mask-group.png" alt="" class="max-w-5">10+
+            </li>
+            <li class="flex flex-row  p-2"><img src="../images/Img - Nombre de pièces_mask-group.png" alt=""
+                    class="max-w-5">1229
+            </li>
+            <li class="flex flex-row p-2"><img src="/images/star_yellow_outline_and_flat - etoile.jpg" alt=""
+                    class="max-w-5 ">4.6
+            </li>
+        </ul>
+        <h1 class="text-sm  p-2 ">L'Étrange Noël de Monsieur Jack -
+            Disney Tim Burton </h1>
+
+
+        <h2 class="font-bold text-base  p-2">199.99€</h2>
+        <button
+            class="text-center bg-orange-600 rounded-full  px-8 py-2 font-bold flex items-center hover:bg-transparent border-orange-600 border-2 border-solid">
+            <img src="../images/Mask Group.png" alt="Panier" class="text-center ">Ajouter au Panier </img></button>
+    </section>
+
+
+    <section class="w-card-size1 h-card-height1 bg-white p-4">
+        <div class="bg-white p-4">
+            <img src="../images/Button - Ajouter à la liste de cadeaux.png" alt="Coeur" class="">
+            <img src="../images/Picture → 21351_Prod.png.png" alt="Set Lego" class="">
+        </div>
+        <ul class="flex flex-row justify-between max-w-40 py-2">
+            <li class="flex flex-row  p-2"><img src="../images/Img - Âges_mask-group.png" alt="" class="max-w-5">10+
+            </li>
+            <li class="flex flex-row  p-2"><img src="../images/Img - Nombre de pièces_mask-group.png" alt=""
+                    class="max-w-5">1229
+            </li>
+            <li class="flex flex-row p-2"><img src="/images/star_yellow_outline_and_flat - etoile.jpg" alt=""
+                    class="max-w-5 ">4.6
+            </li>
+        </ul>
+        <h1 class="text-base font-bold p-1">L'Étrange Noël de Monsieur Jack -
+            Disney Tim Burton </h1>
+
+
+        <h2 class="font-bold text-xl p-2">199.99€</h2>
+        <button class="text-center bg-orange-600 rounded-full px-8 py-2 font-bold flex items-center hover:bg-transparent
+        border-orange-600 border-2 border-solid">
+            <img src="../images/Mask Group.png" alt="Panier" class="text-center ">Ajouter au Panier </img>
+        </button>
+    </section> -->
 </body>
 
 </html>
