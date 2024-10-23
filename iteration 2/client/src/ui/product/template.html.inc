@@ -18,8 +18,8 @@
 
 
     <h2 class="font-bold text-xl p-2">{{price}}€</h2>
-    <button class="text-center bg-orange-600 rounded-full px-8 py-2 font-bold flex items-center hover:bg-transparent
+    <button id="{{id}}" class="text-center bg-orange-600 rounded-full px-8 py-2 font-bold flex items-center hover:bg-transparent
     border-orange-600 border-2 border-solid">
-        <img src="./src/images/Mask Group.png" alt="Panier" class="text-center ">Ajouter au Panier </img>
+        <img src="./src/images/Mask Group.png" alt="Panier" class="text-center">Ajouter au Panier </img>
     </button>
 </section>
