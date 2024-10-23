@@ -9,15 +9,15 @@
             </div>
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <img alt="Image of La Ford Anglia™ volante" class="max-w-32 min-h-20 object-cover mr-4" height="100"
-                        src="{{img-product}}" />
+                    <img alt="{{image-alt}}" class="max-w-32 min-h-20 object-cover mr-4" height="100"
+                        src="{{image-url}}" />
                     <div class="">
                         <div class="text-lg font-semibold pb-4">
-                            {{name-product}}
+                            {{name}}
                         </div>
 
                         <div class="text-xl font-bold pb-4">
-                            {{price-product}}
+                            {{price}}
                         </div>
 
                         <div id="quantité1" class="text-base text-gray-400 ">
@@ -49,15 +49,15 @@
             </div>
             <div class="flex  items-center justify-between">
                 <div class="flex items-center">
-                    <img alt="Image of La Ford Anglia™ volante" class="max-w-20 min-h-20 object-cover mr-4" height="100"
-                        src="{{img-product}}" />
+                    <img alt="{{image-alt}}" class="max-w-20 min-h-20 object-cover mr-4" height="100"
+                        src="{{image-url}}" />
                     <div>
                         <div class="text-lg font-semibold pb-8">
-                            {{name-product}}
+                            {{name}}
                         </div>
 
                         <div class="text-xl font-bold">
-                            {{price-product}}
+                            {{price}}
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                     Vous voulez bénéficier de la livraison GRATUITE ?
                 </div>
                 <div class="text-sm mb-2">
-                    Dépensez {{price-panier}} de plus.
+                    Dépensez {{price}} de plus.
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
                     <div class="bg-blue-600 h-2.5 rounded-full" style="width: 0%">
@@ -137,7 +137,7 @@
                         Montant de la commande (1 articles)
                     </div>
                     <div>
-                        {{price-product}}
+                        {{price}}
                     </div>
                 </div>
                 <div class="flex justify-between mb-2">
@@ -153,7 +153,7 @@
                         Total de la Commande
                     </div>
                     <div>
-                        {{price-panier}}
+                        {{price}}
                     </div>
                 </div>
                 <div class="text-sm text-gray-500 mb-2">
