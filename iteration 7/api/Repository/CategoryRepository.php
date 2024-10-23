@@ -17,12 +17,17 @@ class CategoryRepository extends EntityRepository {
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $cat = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt_prods = $this->cnx->prepare("SELECT * FROM product_categories JOIN products WHERE category_id = :category_id AND product_id = id");
+        $stmt_prods->bindParam(':category_id', $id, PDO::PARAM_INT);
+        $stmt_prods->execute();
+        $cat['produits'] = $stmt_prods->fetchAll(PDO::FETCH_ASSOC);
 
         if (!$cat) return null;
 
         $category = new Category($cat['id']);
         $category->setName($cat['name'])
-                 ->setDescription($cat['description']);
+                 ->setDescription($cat['description'])
+                 ->setProducts($cat['produits']);
 
         return $category;
     }

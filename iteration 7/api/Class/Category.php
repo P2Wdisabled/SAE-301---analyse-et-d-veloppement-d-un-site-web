@@ -7,6 +7,7 @@ class Category implements JsonSerializable {
     private int $id; // ID de la catégorie
     private string $name; // Nom de la catégorie
     private string $description; // Description de la catégorie
+    private array $products;
 
     public function __construct(int $id){
         $this->id = $id;
@@ -20,7 +21,8 @@ class Category implements JsonSerializable {
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "description" => $this->description
+            "description" => $this->description,
+            "products" => $this->products,
         ];
     }
 
@@ -44,6 +46,15 @@ class Category implements JsonSerializable {
 
     public function setId(int $id): self {
         $this->id = $id;
+        return $this;
+    }
+
+    public function getProducts(): array {
+        return $this->products;
+    }
+
+    public function setProducts(array $products): self {
+        $this->products = $products;
         return $this;
     }
 }
