@@ -1,0 +1,21 @@
+@tailwind components;
+@tailwind utilities;
+@tailwind base;
+
+@layer base{
+:root{
+    --panier-size : 60rem;
+    --card-color :hsl(244, 38%, 16%)  ;
+    --bg-color: hsl(233, 47%, 7%);
+    --text-purple: rgb(139 92 246);
+    --text-white: rgb(255 255 255);
+    --text-gray:  rgb(156 163 175);
+    --card-size1 : 300px;
+    --card-size2 : 393px;
+    --card-size3 : 300px;
+    --nav-size : 36rem;
+    --card-height1 : 480px;
+    --card-height2 : 560px;
+    
+}
+}

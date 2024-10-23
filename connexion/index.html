@@ -1,0 +1,112 @@
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="../../dist/output.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-100 font-roboto">
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+            <div class="flex justify-center mb-4">
+                <img alt="LEGO logo" height="60"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/800px-LEGO_logo.svg.png"
+                    width="60" />
+            </div>
+            <h1 class="text-center text-2xl font-bold mb-2">
+                Connectez-vous ou créez votre compte LEGO®
+            </h1>
+            <p class="text-center text-gray-600 mb-6">
+                Si vous êtes un(e) nouveau(elle) fan LEGO®, commencez par saisir votre adresse e-mail.
+            </p>
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2" for="email">
+                    Adresse e-mail ou nom d'utilisateur
+                </label>
+                <div class="relative">
+                    <input
+                        class="w-full border min-w-full border-gray-300 rounded-lg py-2 px-4 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        id="email" placeholder="Saisissez votre adresse e-mail ou votre nom d'utilisateur"
+                        type="text" />
+                    <i class="fas fa-user absolute right-3 top-3 text-gray-400">
+                    </i>
+                </div>
+                <a class="text-blue-500 text-sm mt-2 inline-block" href="#">
+                    Nom d'utilisateur oublié ?
+                </a>
+            </div>
+
+            <div id="mdp" class="mb-4 hidden ">
+                <label class="block text-gray-700 mb-2" for="email">
+                    Mots de passe
+                </label>
+                <div class="relative">
+                    <input
+                        class="w-full min-w-full border border-gray-300 rounded-lg py-2 px-4 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        id="email" placeholder="Saisissez votre Code Secret ! " type="text" />
+                    <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400">
+                        <i class="fas fa-eye-slash"></i>
+                    </span>
+                </div>
+                <a class="text-blue-500 text-sm mt-2 inline-block" href="#">
+                    Mots de passe oublié ?
+                </a>
+            </div>
+            <button id="continuer"
+                class="w-full min-w-full bg-blue-600 text-white py-2 rounded-lg text-lg font-medium hover:bg-blue-700">
+                Continuer
+            </button>
+            <div class="flex items-center my-4">
+                <hr class="flex-grow border-gray-300" />
+                <span class="mx-4 text-gray-500">
+                    ou poursuivez avec
+                </span>
+                <hr class="flex-grow border-gray-300" />
+            </div>
+            <div class="flex justify-center space-x-4">
+                <a class="text-blue-600 text-2xl" href="#">
+                    <img src="https://img.freepik.com/vecteurs-premium/logo-facebook-rond-isole-fond-blanc_469489-897.jpg"
+                        alt="Facebook" class="max-w-10">
+                </a>
+                <a class="text-red-600 text-2xl" href="#">
+                    <img src="https://cdn-icons-png.flaticon.com/512/720/720255.png" alt="Google" class="max-w-10">
+                </a>
+                <a class="text-black text-2xl" href="#">
+                    <img src="https://i.pinimg.com/736x/1e/c1/1a/1ec11a869384bc5e59625bac39b6a099.jpg" alt="Apple"
+                        class="max-w-10">
+                </a>
+                <a class="text-gray-800 text-2xl" href="#">
+                    <img src="https://static-00.iconduck.com/assets.00/epic-games-icon-512x512-7qpmojcd.png"
+                        alt="Epic games" class="max-w-10">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-4 text-gray-500">
+        <a class="mr-2" href="#">
+            Politique de confidentialité
+        </a>
+        |
+        <a class="ml-2" href="#">
+            Cookies
+        </a>
+    </div>
+    <script>
+
+        let continuer = document.getElementById('continuer');
+        let mdp = document.getElementById('mdp')
+
+        continuer.addEventListener('click', handler_mdp);
+
+        function handler_mdp() {
+            mdp.classList.remove('hidden');
+            continuer.innerHTML = 'Se connecter';
+
+
+        }
+    </script>
+</body>
+
+</html>
