@@ -1,21 +1,21 @@
 <div
     class="flex max-w-full mx-auto p-5 relative top-12  flex-row justify-between border-t border-gray-400  max-lg:flex-col ">
 
-    <div class="max-w-40 max-h-96 pr-5 overflow-y-scroll max-lg:hidden">
-        <img src="{{img-product}}" alt="{{alt-product}}" class="max-w-28  object-cover rounded mb-2">
-        <img src="{{img-product}}" alt="{{alt-product}}" class="max-w-28  object-cover rounded mb-2">
-        <img src="{{img-product}}" alt="{{alt-product}}" class="max-w-28  object-cover rounded mb-2">
-        <img src="{{img-product}}" alt="{{alt-product}}" class="max-w-28  object-cover rounded mb-2">
-        <img src="{{img-product}}" alt="{{alt-product}}" class="max-w-28  object-cover rounded mb-2">
-        <img src="{{img-product}}" alt="{{alt-product}}" class="max-w-28  object-cover rounded mb-2">
-        <img src="{{img-product}}" alt="{{alt-product}}" class="max-w-28  object-cover rounded mb-2">
-        <img src="{{img-product}}" alt="{{alt-product}}" class="max-w-28  object-cover rounded mb-2">
+   <div class="max-w-40 max-h-96 pr-5 overflow-y-scroll max-lg:hidden">
+        <img src="{{image-url}}" alt="{{image-alt}}" class="max-w-28  object-cover rounded mb-2">
+        <img src="{{image-url}}" alt="{{image-alt}}" class="max-w-28  object-cover rounded mb-2">
+        <img src="{{image-url}}" alt="{{image-alt}}" class="max-w-28  object-cover rounded mb-2">
+        <img src="{{image-url}}" alt="{{image-alt}}" class="max-w-28  object-cover rounded mb-2">
+        <img src="{{image-url}}" alt="{{image-alt}}" class="max-w-28  object-cover rounded mb-2">
+        <img src="{{image-url}}" alt="{{image-alt}}" class="max-w-28  object-cover rounded mb-2">
+        <img src="{{image-url}}" alt="{{image-alt}}" class="max-w-28  object-cover rounded mb-2">
+        <img src="{{image-url}}" alt="{{image-alt}}" class="max-w-28  object-cover rounded mb-2">
 
 
     </div>
 
     <div class="max-w-5xl pr-5 relative">
-        <img src="{{img-product}}" alt="{{alt-product}}" class="max-w-3xl rounded max-lg:max-w-96">
+        <img src="{{image-url}}" alt="{{image-alt}}" class="max-w-3xl rounded max-lg:max-w-96">
         <div class="absolute top-2 left-2  min-w-full flex justify-between max-h-96">
             <div class="text-gray-500 text-sm bg-white/70 px-3 py-1 rounded">3/8</div>
             <button class="bg-blue-700 text-white text-sm px-4 py-4 rounded-full flex flex-row items-center"><img
@@ -23,6 +23,7 @@
                 voir</button>
         </div>
     </div>
+
 
 
 
@@ -35,15 +36,16 @@
             <img src="{{pas-star}}" alt="Star" class="max-w-5">
         </div>
 
-        <div class="flex justify-between items-center pb-4">
+       <div class="flex justify-between items-center pb-4">
             <h1 class="text-lg font-bold max-w-40 max-lg:text-base max-lg:max-w-48">La Ford Anglia™ volante</h1>
-            <img src="{{img-produit}}" alt="{{alt-produit}}" class="max-h-20 max-lg:max-h-16">
+            <img src="{{image-url}}" alt="{{image-url}}" class="max-h-20 max-lg:max-h-16">
         </div>
 
         <div class="flex  mt-3 flex-col pb-4">
-            <span class="text-2xl font-bold text-gray-700 max-lg:text-xl">{{price-produit}}€</span>
+            <span class="text-2xl font-bold text-gray-700 max-lg:text-xl">{{price}}€</span>
             <span class="text-green-500 text-sm ">Disponible</span>
         </div>
+        
         <div class="flex items-center mt-5 pb-4">
             <button class="bg-gray-200 px-2  rounded">-</button>
             <input type="text" value="{{value}}" class="max-w-7 text-center border mx-3 rounded text-sm">
