@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 17 oct. 2024 à 15:10
+-- Généré le : mer. 23 oct. 2024 à 15:37
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -52,7 +52,7 @@ INSERT INTO `carts` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `cart_items` (
   `id` int(11) NOT NULL,
   `cart_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
+  `product_variant_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 1,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -62,7 +62,7 @@ CREATE TABLE `cart_items` (
 -- Déchargement des données de la table `cart_items`
 --
 
-INSERT INTO `cart_items` (`id`, `cart_id`, `product_id`, `quantity`, `created_at`, `updated_at`) VALUES
+INSERT INTO `cart_items` (`id`, `cart_id`, `product_variant_id`, `quantity`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 2, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
 (2, 1, 2, 1, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
 (3, 2, 3, 5, '2024-10-17 14:35:00', '2024-10-17 14:35:00'),
@@ -82,6 +82,14 @@ CREATE TABLE `categories` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'truc', 'truc b', '2024-10-17 15:15:43', '2024-10-17 15:15:43'),
+(2, 'machin', 'machin', '2024-10-17 15:15:43', '2024-10-17 15:15:43');
 
 -- --------------------------------------------------------
 
@@ -111,6 +119,15 @@ CREATE TABLE `orders` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `status`, `total_amount`, `created_at`, `updated_at`) VALUES
+(1, 1, 'en cours', 99.97, '2024-10-17 15:00:00', '2024-10-17 15:00:00'),
+(2, 2, 'en cours', 49.95, '2024-10-17 15:05:00', '2024-10-17 15:05:00'),
+(3, 3, 'en cours', 759.98, '2024-10-17 15:10:00', '2024-10-17 15:10:00');
 
 --
 -- Déclencheurs `orders`
@@ -159,6 +176,18 @@ CREATE TABLE `order_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Déchargement des données de la table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_variant_id`, `quantity`, `unit_price`, `total_price`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 2, 19.99, 39.98, '2024-10-17 15:00:00', '2024-10-17 15:00:00'),
+(2, 1, 2, 1, 59.99, 59.99, '2024-10-17 15:00:00', '2024-10-17 15:00:00'),
+(3, 2, 3, 5, 9.99, 49.95, '2024-10-17 15:05:00', '2024-10-17 15:05:00'),
+(4, 3, 4, 1, 59.99, 59.99, '2024-10-17 15:10:00', '2024-10-17 15:10:00'),
+(5, 3, 5, 1, 699.99, 699.99, '2024-10-17 15:10:00', '2024-10-17 15:10:00'),
+(6, 3, 6, 1, 39.99, 39.99, '2024-10-17 15:10:00', '2024-10-17 15:10:00');
+
+--
 -- Déclencheurs `order_items`
 --
 DELIMITER $$
@@ -196,7 +225,10 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `image_url`, `crea
 (3, 'Briques de base', 'Pack de briques de base LEGO', 9.99, 'http://example.com/image_briques.jpg', '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
 (4, 'Lego Star Wars', 'Set LEGO Star Wars avec 1000 pièces', 59.99, 'http://example.com/images/lego_star_wars.jpg', '2024-10-17 14:34:20', '2024-10-17 14:34:20'),
 (5, 'Smartphone XYZ', 'Smartphone dernier cri avec écran OLED', 699.99, 'http://example.com/images/smartphone_xyz.jpg', '2024-10-17 14:34:20', '2024-10-17 14:34:20'),
-(6, 'Livre PHP Avancé', 'Guide complet pour maîtriser PHP avancé', 39.99, 'http://example.com/images/php_advanced_book.jpg', '2024-10-17 14:34:20', '2024-10-17 14:34:20');
+(6, 'Livre PHP Avancé', 'Guide complet pour maîtriser PHP avancé', 39.99, 'http://example.com/images/php_advanced_book.jpg', '2024-10-17 14:34:20', '2024-10-17 14:34:20'),
+(7, 'Produit A', 'Description du Produit A', 29.99, NULL, '2024-10-18 09:42:52', '2024-10-18 09:42:52'),
+(8, 'Produit B', 'Description du Produit B', 19.99, NULL, '2024-10-18 09:42:52', '2024-10-18 09:42:52'),
+(9, 'Produit C', 'Description du Produit C', 9.99, NULL, '2024-10-18 09:42:52', '2024-10-18 09:42:52');
 
 -- --------------------------------------------------------
 
@@ -208,6 +240,13 @@ CREATE TABLE `product_categories` (
   `product_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `product_categories`
+--
+
+INSERT INTO `product_categories` (`product_id`, `category_id`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -239,6 +278,21 @@ CREATE TABLE `product_variants` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `product_variants`
+--
+
+INSERT INTO `product_variants` (`id`, `product_id`, `sku`, `price`, `stock_quantity`, `created_at`, `updated_at`) VALUES
+(1, 1, 'TS-LEGO-S', 19.99, 50, '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
+(2, 2, 'SW-SET-001', 59.99, 30, '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
+(3, 3, 'BR-BASIC-001', 9.99, 100, '2024-10-17 11:02:34', '2024-10-17 11:02:34'),
+(4, 4, 'LWSW-1000', 59.99, 20, '2024-10-17 14:34:20', '2024-10-17 14:34:20'),
+(5, 5, 'SMXYZ-001', 699.99, 15, '2024-10-17 14:34:20', '2024-10-17 14:34:20'),
+(6, 6, 'PHPADV-001', 39.99, 40, '2024-10-17 14:34:20', '2024-10-17 14:34:20'),
+(7, 1, 'PRODA-001', 29.99, 10, '2024-10-18 09:42:52', '2024-10-18 09:42:52'),
+(8, 2, 'PRODB-001', 19.99, 3, '2024-10-18 09:42:52', '2024-10-18 09:42:52'),
+(9, 3, 'PRODC-001', 9.99, 0, '2024-10-18 09:42:52', '2024-10-18 09:42:52');
 
 -- --------------------------------------------------------
 
@@ -317,7 +371,7 @@ ALTER TABLE `carts`
 ALTER TABLE `cart_items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cart_id` (`cart_id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD KEY `product_id` (`product_variant_id`);
 
 --
 -- Index pour la table `categories`
@@ -431,7 +485,7 @@ ALTER TABLE `cart_items`
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `option_values`
@@ -443,7 +497,7 @@ ALTER TABLE `option_values`
 -- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `order_history`
@@ -455,13 +509,13 @@ ALTER TABLE `order_history`
 -- AUTO_INCREMENT pour la table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `product_options`
@@ -473,7 +527,7 @@ ALTER TABLE `product_options`
 -- AUTO_INCREMENT pour la table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `tokens`
@@ -502,7 +556,7 @@ ALTER TABLE `carts`
 --
 ALTER TABLE `cart_items`
   ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_variant_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `option_values`

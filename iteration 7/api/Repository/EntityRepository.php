@@ -7,7 +7,7 @@ abstract class EntityRepository {
 
     protected function __construct(){
         // Modifiez ici vos informations de connexion à la base de données
-        $this->cnx = new PDO("mysql:host=localhost;dbname=lego;charset=utf8", "root", "");
+        $this->cnx = new PDO("mysql:host=54.37.68.129;dbname=lego;charset=utf8", "ubuntu", "8x6LG)u@2z");
     }
 
     abstract public function find($id);

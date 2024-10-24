@@ -37,11 +37,20 @@ class CategoryRepository extends EntityRepository {
         $stmt->execute();
         $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
         $res = [];
         foreach ($categories as $cat) {
+            $catergorie_produit = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt_prods = $this->cnx->prepare("SELECT * FROM product_categories JOIN products WHERE category_id = :category_id AND product_id = id");
+            $stmt_prods->bindParam(':category_id', $cat['id'], PDO::PARAM_INT);
+            $stmt_prods->execute();
+            $catergorie_produit['produits'] = $stmt_prods->fetchAll(PDO::FETCH_ASSOC);
+            if (!$catergorie_produit) return null;
+
             $category = new Category($cat['id']);
             $category->setName($cat['name'])
-                     ->setDescription($cat['description']);
+                     ->setDescription($cat['description'])
+                     ->setProducts($catergorie_produit['produits']);
             $res[] = $category;
         }
         return $res;
