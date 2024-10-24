@@ -50,25 +50,13 @@
                 class="flex justify-end   py-3 px-4 border pl-80  bg-white focus:outline-none">
                 <span id="more-arrow" class=" ">&#9660;</span>
             </button>
-            <ul id="more-menu" class="hidden bg-white text-lg">
-                <li>
-                    <a href="#" class="block py-2 px-4 ">{{size-product}}{{price}}</a>
-                </li>
-                <li>
-                    <a href="#" class="block py-2 px-4 ">{{size-product}}{{price}}</a>
-                </li>
-                <li>
-                    <a href="#" class="block py-2 px-4 ">{{size-product}}{{price}}</a>
-                </li>
-                <li>
-                    <a href="#" class="block py-2 px-4 ">{{size-product}}{{price}}</a>
-                </li>
-                <li>
-                    <a href="#" class="block py-2 px-4 ">{{size-product}}{{price}}</a>
-                </li>
-
-
-            </ul>
+            <select id="more-menu" class="bg-white text-lg w-full py-2 px-4 border rounded">
+                <option value="{{size-product}}">{{size-product}} - {{price}}</option>
+                <option value="{{size-product}}">{{size-product}} - {{price}}</option>
+                <option value="{{size-product}}">{{size-product}} - {{price}}</option>
+                <option value="{{size-product}}">{{size-product}} - {{price}}</option>
+                <option value="{{size-product}}">{{size-product}} - {{price}}</option>
+            </select>
         </div>
         <div class="flex items-center mt-5 pb-4">
             <button class="bg-gray-200 px-2  rounded">-</button>
