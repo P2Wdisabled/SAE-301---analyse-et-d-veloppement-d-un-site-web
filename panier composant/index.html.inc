@@ -9,8 +9,8 @@
             </div>
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <img alt="{{image-alt}}" class="max-w-32 min-h-20 object-cover mr-4" height="100"
-                        src="{{image-url}}" />
+                    <img alt="{{image_alt}}" class="max-w-32 min-h-20 object-cover mr-4" height="100"
+                        src="{{image_url}}" />
                     <div class="">
                         <div class="text-lg font-semibold pb-4">
                             {{name}}
@@ -49,8 +49,8 @@
             </div>
             <div class="flex  items-center justify-between">
                 <div class="flex items-center">
-                    <img alt="{{image-alt}}" class="max-w-20 min-h-20 object-cover mr-4" height="100"
-                        src="{{image-url}}" />
+                    <img alt="{{image_alt}}" class="max-w-20 min-h-20 object-cover mr-4" height="100"
+                        src="{{image_url}}" />
                     <div>
                         <div class="text-lg font-semibold pb-8">
                             {{name}}
@@ -160,7 +160,7 @@
                     TVA à incluse 3,49 €
                 </div>
                 <div class="flex items-center text-blue-500 bg-blue-100 p-2 rounded-lg">
-                    <img src="./image/pointlego.png" alt="Point Lego" class="">
+                    <img src="./images/pointlego.png" alt="Point Lego" class="">
                     <div class="whitespace-nowrap">
                         +112 Points LEGO® Insiders en attente.
                     </div>
@@ -168,7 +168,7 @@
             </div>
             <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mb-6 max-lg:max-w-full max-lg:mt-4">
                 <div class="flex items-center justify-center bg-orange-500 text-white p-4 rounded-full mb-4">
-                    <img src="./image/bouclier.png" alt="Bouclier" class="">
+                    <img src="./images/bouclier.png" alt="Bouclier" class="">
                     <span class="ml-2 text-black">Paiement sécurisé</span>
                 </div>
                 <div class="mb-4">
@@ -210,7 +210,7 @@
                         <a href="#" class="text-blue-600 underline">Retours</a>
                     </div>
                     <h3 class="text-lg font-semibold mb-2">Modes de paiement</h3>
-                    <img src="./image/carte.png" alt="Carte" srcset="">
+                    <img src="./images/carte.png" alt="Carte" srcset="">
                 </div>
             </div>
         </div>
@@ -220,17 +220,17 @@
         <div class="flex flex-row justify-evenly max-lg:flex-wrap ">
             <section class="w-[19rem] h-[30rem] bg-white p-4">
                 <div class="bg-white p-4 border ">
-                    <img src="./image/coeur.png" alt="Coeur" class="">
-                    <img src="./image/76424.webp" alt="Set Lego" class="">
+                    <img src="./images/coeur.png" alt="Coeur" class="">
+                    <img src="./images/76424.webp" alt="Set Lego" class="">
                 </div>
                 <h1 class="text-base font-bold p-2">L'Étrange Noël de Monsieur Jack -
                     Disney Tim Burton </h1>
                 <div class="flex p-2 ">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/pas  etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/pas  etoile.jpg" alt="Star" class="max-w-5">
                 </div>
 
                 <h2 class="font-bold text-xl p-2">199.99€</h2>
@@ -241,17 +241,17 @@
 
             <section class="w-[19rem] h-[30rem] bg-white p-4">
                 <div class="bg-white p-4 border ">
-                    <img src="./image/coeur.png" alt="Coeur" class="">
-                    <img src="./image/76424.webp" alt="Set Lego" class="">
+                    <img src="./images/coeur.png" alt="Coeur" class="">
+                    <img src="./images/76424.webp" alt="Set Lego" class="">
                 </div>
                 <h1 class="text-base font-bold p-2">L'Étrange Noël de Monsieur Jack -
                     Disney Tim Burton </h1>
                 <div class="flex p-2 ">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/pas  etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/pas  etoile.jpg" alt="Star" class="max-w-5">
                 </div>
 
                 <h2 class="font-bold text-xl p-2">199.99€</h2>
@@ -262,17 +262,17 @@
 
             <section class="w-[19rem] h-[30rem] bg-white p-4">
                 <div class="bg-white p-4 border ">
-                    <img src="./image/coeur.png" alt="Coeur" class="">
-                    <img src="./image/76424.webp" alt="Set Lego" class="">
+                    <img src="./images/coeur.png" alt="Coeur" class="">
+                    <img src="./images/76424.webp" alt="Set Lego" class="">
                 </div>
                 <h1 class="text-base font-bold p-2">L'Étrange Noël de Monsieur Jack -
                     Disney Tim Burton </h1>
                 <div class="flex p-2 ">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/pas  etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/pas  etoile.jpg" alt="Star" class="max-w-5">
                 </div>
 
                 <h2 class="font-bold text-xl p-2">199.99€</h2>
@@ -283,17 +283,17 @@
 
             <section class="w-[19rem] h-[30rem] bg-white p-4">
                 <div class="bg-white p-4 border ">
-                    <img src="./image/coeur.png" alt="Coeur" class="">
-                    <img src="./image/76424.webp" alt="Set Lego" class="">
+                    <img src="./images/coeur.png" alt="Coeur" class="">
+                    <img src="./images/76424.webp" alt="Set Lego" class="">
                 </div>
                 <h1 class="text-base font-bold p-2">L'Étrange Noël de Monsieur Jack -
                     Disney Tim Burton </h1>
                 <div class="flex p-2 ">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/etoile.jpg" alt="Star" class="max-w-5">
-                    <img src="./image/pas  etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/etoile.jpg" alt="Star" class="max-w-5">
+                    <img src="./images/pas  etoile.jpg" alt="Star" class="max-w-5">
                 </div>
 
                 <h2 class="font-bold text-xl p-2">199.99€</h2>
