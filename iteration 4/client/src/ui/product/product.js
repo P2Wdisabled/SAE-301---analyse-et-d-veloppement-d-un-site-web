@@ -1,5 +1,6 @@
 import { genericRenderer } from "../../lib/utils.js"; 
 import { ProductData } from "../../data/product.js";
+import { CartData } from "../../data/cart.js";
 
 
 const templateFile = await fetch("src/ui/product/template-product.html.inc");
@@ -7,8 +8,8 @@ const template = await templateFile.text();
 
 const templateFilend = await fetch("src/ui/product/template-product-tshirt.html.inc");
 const templatend = await templateFilend.text();
-let ProductLoad = {
 
+let ProductLoad = {
     enable: function(){
         let products = document.querySelectorAll("button");
         products.forEach(product => {
@@ -51,23 +52,23 @@ let ProductLoad = {
         document.getElementById("checkStockButton").addEventListener("click", function () {
             document.getElementById("stockPanel").classList.remove("hidden");
         });
-        let quantity = document.getElementById("quantity");
-        if (quantity != null || quantity != undefined) {
-            let quantity = document.getElementById("quantity");
-            quantity.maxValue = 5;
-            //max-value="5"
-            let less = document.getElementById("less");
-            let more = document.getElementById("more");
-            more.addEventListener("click", function () {
-                if (parseInt(quantity.value) + 1 > quantity.maxValue){return;}
-                quantity.value = parseInt(quantity.value) + 1;
-            });
-            less.addEventListener("click", function () {
-                
-                if (parseInt(quantity.value) - 1 <= 0){return;}
-                    quantity.value = parseInt(quantity.value) - 1;
-                });
-        }
+        let quantityElement = document.getElementById("quantity");
+if (quantityElement) {
+    quantityElement.maxValue = 5;
+    let less = document.getElementById("less");
+    let more = document.getElementById("more");
+    more.addEventListener("click", function () {
+        let currentValue = parseInt(quantityElement.value) || 0;
+        if (currentValue + 1 > quantityElement.maxValue) return;
+        quantityElement.value = currentValue + 1;
+    });
+    less.addEventListener("click", function () {
+        let currentValue = parseInt(quantityElement.value) || 0;
+        if (currentValue - 1 <= 0) return;
+        quantityElement.value = currentValue - 1;
+    });
+}
+
 
         document.getElementById("checkStockButton").addEventListener("click", function () {
             document.getElementById("stockPanel").classList.remove("hidden");
@@ -87,21 +88,31 @@ let ProductLoad = {
             document.getElementById("livraisonContent").classList.add("hidden");
         });
 //<span id="cart-qt" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">{{cart-qt}}</span>
-        document.getElementById("add-cart").addEventListener("click", function () {
-            let cart = JSON.parse(localStorage.getItem("cart"));
-            if (cart == null) {
-                cart = [];
+    // Autres gestionnaires...
+
+    // Gestion de l'ajout au panier
+    let addCartButton = document.getElementById("add-cart");
+    if (addCartButton) {
+        addCartButton.addEventListener("click", async function () {
+            let productVariantId = addCartButton.dataset.id;
+            let quantityElement = document.getElementById("quantity");
+            let quantity = parseInt(quantityElement.value);
+
+            if (isNaN(quantity) || quantity <= 0) {
+                alert("Veuillez entrer une quantité valide.");
+                return;
             }
-            let product = {
-                id: document.getElementById("add-cart").dataset.id,
-                quantity: document.getElementById("quantity").value
-            };
-            cart.push(product);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            alert("Product added to cart");
-            console.log(cart);
+
+            let result = await CartData.addItem(productVariantId, quantity);
+            if (result) {
+                alert("Produit ajouté au panier !");
+                // Mettre à jour l'affichage du panier si nécessaire
+            } else {
+                alert("Erreur lors de l'ajout au panier.");
+            }
         });
     }
+}
 }
 
 export {ProductLoad};

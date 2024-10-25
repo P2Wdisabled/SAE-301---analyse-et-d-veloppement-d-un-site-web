@@ -78,5 +78,10 @@ class HttpRequest {
     {
         return $this->includeFiles;
     }
+
+    public function getParams() {
+        return $this->params;
+    }
+    
 }
 ?>

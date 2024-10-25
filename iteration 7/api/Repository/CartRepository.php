@@ -1,6 +1,7 @@
 <?php
 require_once("Repository/EntityRepository.php");
 require_once("Class/Cart.php");
+require_once("Repository/CartItemRepository.php");
 
 /**
  * Classe CartRepository
@@ -8,15 +9,20 @@ require_once("Class/Cart.php");
  */
 class CartRepository extends EntityRepository {
 
+    private CartItemRepository $cartItems;
+
     public function __construct(){
         parent::__construct();
+        $this->cartItems = new CartItemRepository();
     }
 
     /**
      * Trouve un panier par ID.
      */
-    public function find($id): ?Cart{
-        $stmt = $this->cnx->prepare("SELECT * FROM carts WHERE id = :id");
+    public function find($id): ?Cart {
+        $stmt = $this->cnx->prepare("
+            SELECT * FROM carts WHERE id = :id
+        ");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $cartData = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -24,18 +30,10 @@ class CartRepository extends EntityRepository {
         if (!$cartData) return null;
 
         $cart = new Cart($cartData['id']);
-        $cart->setUserId($cartData['user_id']);
+        $cart->setToken($cartData['token']);
 
         // Récupérer les items du panier
-        $stmt_items = $this->cnx->prepare("
-            SELECT ci.product_variant_id, p.name, p.description, p.price, ci.quantity
-            FROM cart_items ci
-            JOIN products p ON ci.product_variant_id = p.id
-            WHERE ci.cart_id = :cart_id
-        ");
-        $stmt_items->bindParam(':cart_id', $id, PDO::PARAM_INT);
-        $stmt_items->execute();
-        $items = $stmt_items->fetchAll(PDO::FETCH_ASSOC);
+        $items = $this->cartItems->findByCartId($id);
 
         $cart->setItems($items);
 
@@ -43,42 +41,27 @@ class CartRepository extends EntityRepository {
     }
 
     /**
-     * Trouve un panier par user_id.
-     * Si aucun panier n'existe, en crée un nouveau.
+     * Trouve un panier par token.
      */
-    public function findByUserId(int $user_id): Cart {
-        $stmt = $this->cnx->prepare("SELECT * FROM carts WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    public function findByToken(string $token): ?Cart {
+        $stmt = $this->cnx->prepare("
+            SELECT * FROM carts WHERE token = :token
+        ");
+        $stmt->bindParam(':token', $token, PDO::PARAM_STR);
         $stmt->execute();
         $cartData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($cartData) {
-            return $this->find($cartData['id']);
-        } else {
-            // Créer un nouveau panier
-            $cart = new Cart(0);
-            $cart->setUserId($user_id);
-            $this->save($cart);
-            return $this->find($cart->getId());
-        }
-    }
+        if (!$cartData) return null;
 
-    /**
-     * Récupère tous les paniers.
-     */
-    public function findAll(): array {
-        $stmt = $this->cnx->prepare("SELECT * FROM carts");
-        $stmt->execute();
-        $cartsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $cart = new Cart($cartData['id']);
+        $cart->setToken($cartData['token']);
 
-        $res = [];
-        foreach ($cartsData as $cartData) {
-            $cart = $this->find($cartData['id']);
-            if ($cart !== null) {
-                $res[] = $cart;
-            }
-        }
-        return $res;
+        // Récupérer les items du panier
+        $items = $this->cartItems->findByCartId($cartData['id']);
+
+        $cart->setItems($items);
+
+        return $cart;
     }
 
     /**
@@ -87,10 +70,11 @@ class CartRepository extends EntityRepository {
     public function save($cart): bool {
         try {
             $stmt = $this->cnx->prepare("
-                INSERT INTO carts (user_id)
-                VALUES (:user_id)
+                INSERT INTO carts (token)
+                VALUES (:token)
             ");
-            $stmt->bindParam(':user_id', $cart->getUserId(), PDO::PARAM_INT);
+            $token = $cart->getToken();
+            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
             $stmt->execute();
             $cart_id = $this->cnx->lastInsertId();
             $cart->setId((int)$cart_id);
@@ -99,24 +83,14 @@ class CartRepository extends EntityRepository {
             return false;
         }
     }
+        
 
     /**
-     * Met à jour un panier (actuellement, seule la gestion des items est réalisée via CartController).
-     * Cette méthode peut être étendue si nécessaire.
+     * Met à jour un panier (actuellement non utilisé).
      */
     public function update($cart): bool {
-        try {
-            $stmt = $this->cnx->prepare("
-                UPDATE carts
-                SET user_id = :user_id, updated_at = NOW()
-                WHERE id = :id
-            ");
-            $stmt->bindParam(':user_id', $cart->getUserId(), PDO::PARAM_INT);
-            $stmt->bindParam(':id', $cart->getId(), PDO::PARAM_INT);
-            return $stmt->execute();
-        } catch (Exception $e) {
-            return false;
-        }
+        // Non utilisé pour l'instant
+        return false;
     }
 
     /**
@@ -124,12 +98,37 @@ class CartRepository extends EntityRepository {
      */
     public function delete($id): bool {
         try {
-            $stmt = $this->cnx->prepare("DELETE FROM carts WHERE id = :id");
+            // Supprimer les items du panier
+            $this->cartItems->deleteByCartId($id);
+
+            // Supprimer le panier
+            $stmt = $this->cnx->prepare("
+                DELETE FROM carts WHERE id = :id
+            ");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    /**
+     * Récupère tous les paniers (si nécessaire).
+     */
+    public function findAll(): array {
+        $stmt = $this->cnx->prepare("SELECT * FROM carts");
+        $stmt->execute();
+        $cartsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $carts = [];
+        foreach ($cartsData as $cartData) {
+            $cart = new Cart($cartData['id']);
+            $cart->setToken($cartData['token']);
+            $items = $this->cartItems->findByCartId($cartData['id']);
+            $cart->setItems($items);
+            $carts[] = $cart;
+        }
+        return $carts;
     }
 }
 ?>

@@ -1,12 +1,12 @@
 <?php
 /**
  * Classe CartItem
- * Représente un item dans le panier avec les propriétés id, cart_id, product_id, quantity.
+ * Représente un item dans le panier.
  */
 class CartItem implements JsonSerializable {
     private int $id; // ID de l'item
     private int $cart_id; // ID du panier associé
-    private int $product_id; // ID du produit
+    private int $product_variant_id; // ID de la variante du produit
     private int $quantity; // Quantité du produit
 
     public function __construct(int $id){
@@ -21,7 +21,7 @@ class CartItem implements JsonSerializable {
         return [
             "id" => $this->id,
             "cart_id" => $this->cart_id,
-            "product_id" => $this->product_id,
+            "product_variant_id" => $this->product_variant_id,
             "quantity" => $this->quantity
         ];
     }
@@ -35,12 +35,12 @@ class CartItem implements JsonSerializable {
         return $this;
     }
 
-    public function getProductId(): int {
-        return $this->product_id;
+    public function getProductVariantId(): int {
+        return $this->product_variant_id;
     }
 
-    public function setProductId(int $product_id): self {
-        $this->product_id = $product_id;
+    public function setProductVariantId(int $product_variant_id): self {
+        $this->product_variant_id = $product_variant_id;
         return $this;
     }
 
